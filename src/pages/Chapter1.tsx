@@ -1,6 +1,11 @@
+import { FC } from "react";
+import * as text from "@/db/chapter1.json";
+import { LayoutTemplate } from "@/components/LayoutTemplate";
 
-export default function Chapter1() {
+const Chapter1: FC = () => {
   return (
-    <h1 className='flex justify-center items-center'>Глава 1</h1>
-  )
-}
+    <LayoutTemplate title={text.title} text={text.text} />
+  );
+};
+
+export default Chapter1;

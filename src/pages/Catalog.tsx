@@ -1,6 +1,7 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
-export default function Catalog() {
+export const Catalog: FC = () => {
   const chaptersList = [
     {
       title: "«Побічний ефект успіху»",
