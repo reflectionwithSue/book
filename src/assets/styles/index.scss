@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '@/assets/styles/loaderStyle.scss';
+
 :root {
   --background-light: #ede5d0;
   --background-dark: #432816;
@@ -59,7 +61,6 @@ h6 {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
   background-color: var(--background-light);
   transition: background-color 0.3s;
 
@@ -71,6 +72,7 @@ body {
 #root {
   width: 100vw;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .custom-bg {
@@ -84,8 +86,9 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 89vw;
+    width: 90vw;
     height: 19vh;
+    z-index: -2;
     background-image: url('../../../public/day.svg');
     background-repeat: no-repeat;
 

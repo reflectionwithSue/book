@@ -7,6 +7,7 @@ import Chapter3 from "@/pages/Chapter3.tsx";
 import Meditation from "@/pages/Meditation.tsx";
 import Chapter4 from "@/pages/Chapter4.tsx";
 import AboutAuthors from "@/pages/AboutAuthors.tsx";
+import {AddChaptersText} from "@/pages/AddChaptersText";
 
 export const router = createHashRouter([
   {
@@ -47,4 +48,9 @@ export const router = createHashRouter([
     errorElement: <ErrorPage />,
     element: <AboutAuthors />,
   },
+  {
+    path: "/add-text",
+    errorElement: <ErrorPage />,
+    element: <AddChaptersText />,
+  }
 ]);
