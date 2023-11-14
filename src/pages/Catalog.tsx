@@ -24,8 +24,12 @@ export const Catalog: FC = () => {
       path: "/vdykh-vidykh-rivnovaha",
     },
     {
-      title: "Інформація про авторів",
+      title:  "Інформація про авторів",
       path: "/about-authors",
+    },
+    {
+      title:"Ключ до техніки «Кактус»",
+      path: "/klyuch-do-tekhniki-kaktus",
     },
   ];
   return (

@@ -8,6 +8,7 @@ import Meditation from "@/pages/Meditation.tsx";
 import Chapter4 from "@/pages/Chapter4.tsx";
 import AboutAuthors from "@/pages/AboutAuthors.tsx";
 import {AddChaptersText} from "@/pages/AddChaptersText";
+import { Cactus } from "@/pages/Cactus";
 
 export const router = createHashRouter([
   {
@@ -52,5 +53,10 @@ export const router = createHashRouter([
     path: "/add-text",
     errorElement: <ErrorPage />,
     element: <AddChaptersText />,
+  },
+  {
+    path: "/klyuch-do-tekhniki-kaktus",
+    errorElement: <ErrorPage />,
+    element: <Cactus />,
   }
 ]);
