@@ -2,25 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '@/assets/styles/loaderStyle.scss';
+@import "@/assets/styles/utills/variables.scss";
+@import "@/assets/styles/loaderStyle.scss";
+@import "@/assets/styles/svgAnimationStyles.scss";
 
 :root {
   --background-light: #ede5d0;
   --background-dark: #432816;
-
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-size: 18px;
   color-scheme: light dark;
-  color: var(--background-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
 
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: $background-light;
+  transition: background-color 0.3s;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $background-dark;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin: 0 auto;
+
+
+  @media (min-width: 640px) {
+    padding: 30px;
+  }
+
+  @media (min-width: 1280px) {
+    padding: 50px;
+
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair", serif;
+  font-weight: 800;
+  color: $background-dark;
+  text-transform: uppercase;
+
+  @media (prefers-color-scheme: dark) {
+    color: $background-light;
+  }
+}
+p,
+p > span {
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  color: $background-dark !important;
+  line-height: 1.625;
+
+  @media (prefers-color-scheme: dark) {
+    color: $background-light !important;
+  }
   @media (min-width: 640px) {
     font-size: 20px;
   }
@@ -39,62 +97,72 @@
   @media (min-width: 1536px) {
     font-size: 26px;
   }
+}
 
+ul > li {
+  list-style-type: "-";
+}
+
+svg,
+img {
+  max-width: 100%;
+}
+
+.layout-footer {
+  background-image: url("../../../public/day.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
   @media (prefers-color-scheme: dark) {
-    color: var(--background-light);
+    background-image: url("../../../public/night.svg");
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Libre Baskerville", serif;
-  color: var(--background-dark);
-  @media (prefers-color-scheme: dark) {
-    color: var(--background-light);
+.author {
+  opacity: 0;
+
+  &-0 {
+    animation: loading 2s linear 2.5s forwards;
+  }
+
+  &-img-0 {
+    animation: loading 2s linear 2s forwards;
+  }
+
+  &-1 {
+    animation: loading 2s linear 3.5s forwards;
+  }
+
+  &-img-1 {
+    animation: loading 2s linear 3s forwards;
+  }
+  &-2 {
+    animation: loading 2s linear 4.5s forwards;
+  }
+
+  &-img-2 {
+    animation: loading 2s linear 4s forwards;
+  }
+
+  &-title {
+    opacity: 0;
+    animation: loading 2s linear 0.3s forwards;
   }
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  background-color: var(--background-light);
-  transition: background-color 0.3s;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: var(--background-dark);
-  }
-}
-
-#root {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: hidden;
-}
-
-.custom-bg {
+.player {
+  opacity: 0;
+  animation: loading 2s linear 5.5s forwards;
   position: relative;
-  width: 100%;
-  height: 100%;
+}
 
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 90vw;
-    height: 19vh;
-    z-index: -2;
-    background-image: url('../../../public/day.svg');
-    background-repeat: no-repeat;
 
-    @media (prefers-color-scheme: dark) {
-      background-image: url('../../../public/night.svg');
 
-    }
+@keyframes loading {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

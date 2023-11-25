@@ -1,6 +1,3 @@
-
 export default function Meditation() {
-  return (
-    <div>Meditation</div>
-  )
+  return <div>00</div>;
 }

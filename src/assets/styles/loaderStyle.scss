@@ -10,7 +10,7 @@
   height: var(--uib-size);
 
   @media (prefers-color-scheme: dark) {
-    color: #ede5d0;
+    --uib-color: #ede5d0;
   }
 
   &__dot {

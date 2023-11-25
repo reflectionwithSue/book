@@ -11,10 +11,10 @@ type Chapter = {
 export const AddChaptersText = () => {
   const chaptersList = [
     { id: 0, title: "Обрати главу" },
-    { id: 1, title: "«Побічний ефект успіху»" },
-    { id: 2, title: "«Він цілком нормальний»" },
-    { id: 3, title: "«Режим «Коханка»" },
-    { id: 4, title: "«Вдих-видих. Рівновага»" },
+    { id: 1, title: "Побічний ефект успіху" },
+    { id: 2, title: "Він цілком нормальний" },
+    { id: 3, title: "Режим «Коханка»" },
+    { id: 4, title: "Вдих-видих. Рівновага" },
   ];
   const [open, setOpen] = useState(false);
   const [text, setText] = useState<string>("");

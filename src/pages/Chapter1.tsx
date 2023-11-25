@@ -14,6 +14,8 @@ const Chapter1: FC = () => {
   useEffect(() => {
     const load = async () => {
       const response = await getText(1);
+      console.log(response);
+      
       setContent(response.text);
       setTitle(response.title);
       setTimeout(() => {
@@ -40,7 +42,7 @@ const Chapter1: FC = () => {
         </div>
       ) : (
         <LayoutTemplate title={title}>
-          <div ref={contentRef} className="flex justify-center h-full">
+          <div ref={contentRef}>
             <ReactQuill
               theme="bubble"
               value={content}
@@ -54,6 +56,7 @@ const Chapter1: FC = () => {
                 clipboard: {
                   matchVisual: false,
                 },
+                
               }}
             />
           </div>
