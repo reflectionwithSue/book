@@ -10,7 +10,7 @@ const firebaseConfig = {
   authDomain: "sue-3193e.firebaseapp.com",
   databaseURL: "https://sue-3193e-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "sue-3193e",
-  storageBucket: "sue-3193e.appspot.com",
+  storageBucket: "gs://sue-3193e",
   messagingSenderId: "188217529044",
   appId: "1:188217529044:web:2060b5f39e3add6c5c2141"
 };

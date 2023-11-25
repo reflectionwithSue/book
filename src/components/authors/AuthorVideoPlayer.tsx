@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import video from "../../../public/video.mp4";
 
 export const AuthorVideoPlayer: FC = () => {
   const storage = getStorage();
@@ -13,10 +12,8 @@ export const AuthorVideoPlayer: FC = () => {
   useEffect(() => {
     const fetchUri = async () => {
       try {
-                const downloadURL = await getDownloadURL(videoRef);
-        
-/*         const downloadURL = video;
- */        setVideoUrl(downloadURL);
+        const downloadURL = await getDownloadURL(videoRef);
+        setVideoUrl(downloadURL);
       } catch (error) {
         console.error("Error fetching video URL:", error);
       }
@@ -54,9 +51,7 @@ export const AuthorVideoPlayer: FC = () => {
     });
   };
 
-  return (
-    <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
-  );
+  return <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />;
 };
 
 export const VideoJS = (props) => {
@@ -95,7 +90,10 @@ export const VideoJS = (props) => {
   }, [playerRef]);
 
   return (
-    <div data-vjs-player className="w-3/4 mx-auto mb-5 player md:w-2/3 lg:w-1/2">
+    <div
+      data-vjs-player
+      className="w-3/4 mx-auto mb-5 player md:w-2/3 lg:w-1/2"
+    >
       <div ref={videoRef} />
     </div>
   );
