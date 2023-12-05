@@ -9,10 +9,10 @@ export const AuthorSVG: FC<AuthorSVGProps> = ({ paths }) => {
   const lettersRef = useRef<SVGGElement>(null);
 
   useEffect(() => {
-    const letters = lettersRef.current?.querySelectorAll("path");
+    const letters = lettersRef.current?.querySelectorAll("path");    
 
     const timeline = anime.timeline({
-      duration: 1900,
+      duration: 1500,
       easing: "easeInOutExpo",
     });
 
@@ -24,7 +24,7 @@ export const AuthorSVG: FC<AuthorSVGProps> = ({ paths }) => {
   }, [paths]);
   return (
       <svg
-        className="w-3/4 h-3/4 lg:w-1/2 lg:h-1/2"
+        className="w-2/4 h-2/4 lg:w-1/2 lg:h-1/2 author-svg"
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"

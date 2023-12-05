@@ -47,14 +47,14 @@ path {
 }
 
 .star {
-  animation: visibility 1s linear 4s backwards;
+  animation: visibility 1s linear 3.5s backwards;
   fill: #ed4523;
 
   &--slow {
-    animation: visibility 1s linear 5s backwards;
+    animation: visibility 1s linear 4.5s backwards;
   }
   &--slow-more {
-    animation: visibility 1s linear 5.8s backwards;
+    animation: visibility 1s linear 5.5s backwards;
   }
 }
 
