@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "@/assets/styles/Meditation.scss";
 import meditation from "../../public/meditation.mp3";
+import { Loader } from "@/components/Loader";
 
 export default function Meditation() {
   const bgVideoRef = useRef<HTMLVideoElement>(null);
@@ -18,6 +19,7 @@ export default function Meditation() {
   const progressRef = useRef<HTMLProgressElement>(null);
 
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
+  const [isVideoReady, setIsVideoReady] = useState<boolean>(true);
 
   useEffect(() => {
     const bgVideo = bgVideoRef.current;
@@ -66,57 +68,72 @@ export default function Meditation() {
       setIsAudioPlaying(false);
     }
   };
+  
 
   return (
     <>
-      <video muted loop id="myVideo" preload="auto" ref={bgVideoRef} playsInline>
-        <source src={bg} type="video/mp4" />
-      </video>
-
-      <div className="card">
-        <div className="card__title">Runaway</div>
-        <div className="card__subtitle">Smalltown Boy , Shane D</div>
-        <div className="card__wrapper">
-          <div className="card__time card__time-passed">03:34</div>
-          <div className="card__timeline">
-            <progress value="0" max="100" ref={progressRef}></progress>
+      {!isVideoReady ? (
+        <div className="w-full h-full flex flex-col justify-center items-center">
+          {" "}
+          <Loader />{" "}
+        </div>
+      ) : (
+        <>
+          <video
+            muted
+            loop
+            id="myVideo"
+            preload="auto"
+            ref={bgVideoRef}
+            playsInline
+          >
+            <source src={bg} type="video/mp4" />
+          </video>
+          <div className="card">
+            <div className="card__title">Runaway</div>
+            <div className="card__subtitle">Smalltown Boy , Shane D</div>
+            <div className="card__wrapper">
+              <div className="card__time card__time-passed">03:34</div>
+              <div className="card__timeline">
+                <progress value="0" max="100" ref={progressRef}></progress>
+              </div>
+              <div className="card__time card__time-left">02:04</div>
+            </div>
+            <div className="card__wrapper">
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faVolumeLow} />
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faRotateLeft} />
+              </button>
+              <button className="card__btn">
+                {isAudioPlaying ? (
+                  <FontAwesomeIcon
+                    icon={faPause}
+                    size="2xl"
+                    onClick={handlePauseClick}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPlay}
+                    size="2xl"
+                    onClick={handlePlayClick}
+                  />
+                )}
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faRotateRight} />
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faGauge} />
+              </button>
+            </div>
           </div>
-          <div className="card__time card__time-left">02:04</div>
-        </div>
-        <div className="card__wrapper">
-          <button className="card__btn">
-            <FontAwesomeIcon icon={faVolumeLow} />
-          </button>
-          <button className="card__btn">
-          <FontAwesomeIcon icon={faRotateLeft} />
-          </button>
-          <button className="card__btn">
-            {isAudioPlaying ? (
-              <FontAwesomeIcon
-                icon={faPause}
-                size="2xl"
-                onClick={handlePauseClick}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faPlay}
-                size="2xl"
-                onClick={handlePlayClick}
-              />
-            )}
-          </button>
-          <button className="card__btn">
-          <FontAwesomeIcon icon={faRotateRight} />
-          </button>
-          <button className="card__btn">
-          <FontAwesomeIcon icon={faGauge} />
-          </button>
-        </div>
-      </div>
-
-      <audio ref={audioPlayerRef}>
-        <source src={meditation} />
-      </audio>
+          <audio ref={audioPlayerRef}>
+            <source src={meditation} />
+          </audio>
+        </>
+      )}
     </>
   );
 }
