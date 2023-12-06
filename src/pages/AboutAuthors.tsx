@@ -58,7 +58,7 @@ export default function AboutAuthors() {
   }, []); 
 
   return (
-    <div className="container 2xl:p-0 2xl:mt-5">
+    <div className="container 2xl:mt-5">
       <h2 className="text-center text-[1.3rem] sm:text-2xl md:text-3xl 2xl:text-4xl author-title mb-5">
         Над книгою працювали
       </h2>
