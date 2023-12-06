@@ -53,16 +53,6 @@ export default function Meditation() {
   const audioPlayer = audioPlayerRef.current;
   const progress = progressRef.current;
 
-  useEffect(() => {
-    if (audioPlayer && progress) {
-      audioPlayer.addEventListener("timeupdate", updateProgress);
-
-      return () => {
-        audioPlayer.removeEventListener("timeupdate", updateProgress);
-      };
-    }
-  }, []);
-
   const handleProgressClick = (event:React.MouseEvent<HTMLProgressElement, MouseEvent>) => {
     if (audioPlayer) {
       const progressBar = event.target as HTMLProgressElement;
@@ -77,7 +67,7 @@ export default function Meditation() {
     }
   };
 
-  const updateProgress = () => {
+  const updateProgress = () => {    
     if (audioPlayer) {
       const currentTime = audioPlayer.currentTime;
       const duration = audioPlayer.duration;
@@ -121,8 +111,8 @@ export default function Meditation() {
             <source src={bg} type="video/mp4" />
           </video>
           <div className="card">
-            <div className="card__title">Runaway</div>
-            <div className="card__subtitle">Smalltown Boy , Shane D</div>
+            <div className="card__title">Медитація</div>
+
             <div className="card__wrapper">
               <div className="card__time card__time-passed">{passedTime}</div>
               <div className="card__timeline">
@@ -165,7 +155,7 @@ export default function Meditation() {
               </button>
             </div>
           </div>
-          <audio ref={audioPlayerRef}>
+          <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
             <source src={meditation} />
           </audio>
         </>
