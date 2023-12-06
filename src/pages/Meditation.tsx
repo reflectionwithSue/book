@@ -2,11 +2,11 @@ import { useRef, useEffect, useState } from "react";
 import bg from "../../public/bg-video.mp4";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBackward,
-  faForward,
   faGauge,
   faPause,
   faPlay,
+  faRotateLeft,
+  faRotateRight,
   faVolumeLow,
 } from "@fortawesome/free-solid-svg-icons";
 import "@/assets/styles/Meditation.scss";
@@ -23,6 +23,7 @@ export default function Meditation() {
     const bgVideo = bgVideoRef.current;
 
     if (bgVideo) {
+      bgVideo.play();
       bgVideo.playbackRate = 0.7;
     }
   }, []);
@@ -68,7 +69,7 @@ export default function Meditation() {
 
   return (
     <>
-      <video autoPlay muted loop id="myVideo" preload="auto" ref={bgVideoRef}>
+      <video muted loop id="myVideo" preload="auto" ref={bgVideoRef}>
         <source src={bg} type="video/mp4" />
       </video>
 
@@ -87,7 +88,7 @@ export default function Meditation() {
             <FontAwesomeIcon icon={faVolumeLow} />
           </button>
           <button className="card__btn">
-            <FontAwesomeIcon icon={faBackward} />
+          <FontAwesomeIcon icon={faRotateLeft} />
           </button>
           <button className="card__btn">
             {isAudioPlaying ? (
@@ -105,7 +106,7 @@ export default function Meditation() {
             )}
           </button>
           <button className="card__btn">
-            <FontAwesomeIcon icon={faForward} />
+          <FontAwesomeIcon icon={faRotateRight} />
           </button>
           <button className="card__btn">
           <FontAwesomeIcon icon={faGauge} />
