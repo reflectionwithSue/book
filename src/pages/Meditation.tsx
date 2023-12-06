@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from "react";
-import bg from "../../public/bg-video.mp4";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGauge,
@@ -12,25 +11,17 @@ import {
 import "@/assets/styles/Meditation.scss";
 import meditation from "../../public/meditation.mp3";
 import { Loader } from "@/components/Loader";
+import { VideoBG } from "@/components/meditation/VideoBG";
 
 export default function Meditation() {
-  const bgVideoRef = useRef<HTMLVideoElement>(null);
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLProgressElement>(null);
 
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
-  const [isVideoReady, setIsVideoReady] = useState<boolean>(true);
   const [passedTime, setPassedTime] = useState<string>("00:00");
   const [leftTime, setLeftTime] = useState<string>("07:31");
 
-  useEffect(() => {
-    const bgVideo = bgVideoRef.current;
-
-    if (bgVideo) {
-      bgVideo.play();
-      bgVideo.playbackRate = 0.7;
-    }
-  }, []);
+  
 
   const handlePlayClick = () => {
     const audioPlayer = audioPlayerRef.current;
@@ -92,24 +83,8 @@ export default function Meditation() {
   };
 
   return (
-    <>
-      {!isVideoReady ? (
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          {" "}
-          <Loader />{" "}
-        </div>
-      ) : (
-        <>
-          <video
-            muted
-            loop
-            id="myVideo"
-            preload="auto"
-            ref={bgVideoRef}
-            playsInline
-          >
-            <source src={bg} type="video/mp4" />
-          </video>
+    <section className="meditation">
+    <VideoBG />
           <div className="card">
             <div className="card__title">Медитація</div>
 
@@ -158,8 +133,6 @@ export default function Meditation() {
           <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
             <source src={meditation} />
           </audio>
-        </>
-      )}
-    </>
+        </section>
   );
 }
