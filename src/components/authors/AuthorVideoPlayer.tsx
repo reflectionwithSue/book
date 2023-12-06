@@ -25,20 +25,21 @@ export const AuthorVideoPlayer: FC = () => {
 
   return (
     <div className="w-3/4 mx-auto mb-5 player md:w-2/3 lg:w-1/2 h-20 md:h-38 lg:h-44">
-      <iframe
+      {/* <iframe
         title="YouTube Video"
         width="100%"
         height="100%"
         src="https://www.youtube.com/embed/dMkBJI7vb7c"
         allowFullScreen
-      />
+      /> */}
 
-     {/*  <ReactPlayer
+      <ReactPlayer
+      className="react-player"
         url="https://www.youtube.com/watch?v=dMkBJI7vb7c"
         controls={true}
         width="100%"
         height="100%"
-      /> */}
+      />
     </div>
   );
 };

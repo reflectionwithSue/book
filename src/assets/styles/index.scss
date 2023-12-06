@@ -167,7 +167,7 @@ img {
 .player {
   opacity: 0;
   animation: loading 2s linear 13s forwards;
-  min-height: 150px;
+  /* min-height: 150px;
 
   @media (min-width: 440px) {
     min-height: 200px;
@@ -181,9 +181,21 @@ img {
   }
   @media (min-width: 1536px) {
     min-height: 450px;
+  } */
+
+  position: relative;
+  padding-top: 56.25%;
+
+  @media (min-width: 1024px) {
+    padding-top: 27%;
   }
 }
 
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 @keyframes loading {
   from {
     opacity: 0;
