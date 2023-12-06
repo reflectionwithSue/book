@@ -4,7 +4,6 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export const VideoBG = () => {
   const bgVideoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
   const storage = getStorage();
   const videoRef = ref(storage, "bg-video.mp4");
   const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined);
@@ -15,14 +14,11 @@ export const VideoBG = () => {
     if (bgVideo) {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
-      setIsVideoReady(true);
     }
 
     const fetchUri = async () => {
       try {
         const downloadURL = await getDownloadURL(videoRef);
-        console.log("downloadURL:", downloadURL);
-
         setVideoUrl(downloadURL);
       } catch (error) {
         console.error("Error fetching video URL:", error);
@@ -40,6 +36,7 @@ export const VideoBG = () => {
       ref={bgVideoRef}
       playsInline
       src={videoUrl}
+      style={ !videoUrl ? { backgroundColor: "#000" } : { backgroundColor: "transparent" }}
     ></video>
   );
 };

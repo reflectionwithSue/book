@@ -6,17 +6,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: mounting 6s ease-in-out;
-}
-
-@keyframes mounting {
-  0% {
-    background-color: #000;
-  }
-
-  100% {
-    background-color: transparent;
-  }
 }
 
 .card {
