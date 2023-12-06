@@ -10,18 +10,39 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "@/assets/styles/Meditation.scss";
 import meditation from "../../public/meditation.mp3";
-import { Loader } from "@/components/Loader";
 import { VideoBG } from "@/components/meditation/VideoBG";
+import { Loader } from "@/components/Loader";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 export default function Meditation() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLProgressElement>(null);
 
+  const audioPlayer = audioPlayerRef.current;
+  const progress = progressRef.current;
+
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
   const [passedTime, setPassedTime] = useState<string>("00:00");
   const [leftTime, setLeftTime] = useState<string>("07:31");
 
-  
+  const storage = getStorage();
+  const videoRef = ref(storage, "bg-video.mp4");
+  const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchUri = async () => {
+      try {
+        const downloadURL = await getDownloadURL(videoRef);
+        setVideoUrl(downloadURL);
+        setIsVideoLoaded(true);
+      } catch (error) {
+        console.error("Error fetching video URL:", error);
+      }
+    };
+
+    fetchUri();
+  }, []);
 
   const handlePlayClick = () => {
     const audioPlayer = audioPlayerRef.current;
@@ -41,14 +62,13 @@ export default function Meditation() {
     return formattedTime;
   };
 
-  const audioPlayer = audioPlayerRef.current;
-  const progress = progressRef.current;
-
-  const handleProgressClick = (event:React.MouseEvent<HTMLProgressElement, MouseEvent>) => {
+  const handleProgressClick = (
+    event: React.MouseEvent<HTMLProgressElement, MouseEvent>
+  ) => {
     if (audioPlayer) {
       const progressBar = event.target as HTMLProgressElement;
       const clickPosition = event.clientX;
-      const progressBarRect = progressBar.getBoundingClientRect();      
+      const progressBarRect = progressBar.getBoundingClientRect();
       const progressRatio =
         (clickPosition - progressBarRect.left) / progressBarRect.width;
       const newTime = progressRatio * audioPlayer.duration;
@@ -58,7 +78,7 @@ export default function Meditation() {
     }
   };
 
-  const updateProgress = () => {    
+  const updateProgress = () => {
     if (audioPlayer) {
       const currentTime = audioPlayer.currentTime;
       const duration = audioPlayer.duration;
@@ -83,8 +103,10 @@ export default function Meditation() {
   };
 
   return (
-    <section className="meditation">
-    <VideoBG />
+    <>
+      {isVideoLoaded ? (
+        <section className="meditation">
+          <VideoBG videoUrl={videoUrl} />
           <div className="card">
             <div className="card__title">Медитація</div>
 
@@ -134,5 +156,11 @@ export default function Meditation() {
             <source src={meditation} />
           </audio>
         </section>
+      ) : (
+        <div className="container w-full h-full flex flex-col justify-center items-center">
+          <Loader />
+        </div>
+      )}
+    </>
   );
 }

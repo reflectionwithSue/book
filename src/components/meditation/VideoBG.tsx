@@ -1,12 +1,12 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, FC } from "react";
 import "@/assets/styles/VideoBG.scss";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-export const VideoBG = () => {
+type VideoBGProps = {
+  videoUrl: string | undefined;
+};
+
+export const VideoBG:FC<VideoBGProps> = ({ videoUrl }) => {
   const bgVideoRef = useRef<HTMLVideoElement>(null);
-  const storage = getStorage();
-  const videoRef = ref(storage, "bg-video.mp4");
-  const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const bgVideo = bgVideoRef.current;
@@ -15,17 +15,6 @@ export const VideoBG = () => {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
     }
-
-    const fetchUri = async () => {
-      try {
-        const downloadURL = await getDownloadURL(videoRef);
-        setVideoUrl(downloadURL);
-      } catch (error) {
-        console.error("Error fetching video URL:", error);
-      }
-    };
-
-    fetchUri();
   }, []);
   return (
     <video
@@ -36,7 +25,6 @@ export const VideoBG = () => {
       ref={bgVideoRef}
       playsInline
       src={videoUrl}
-      style={ !videoUrl ? { backgroundColor: "#000" } : { backgroundColor: "transparent" }}
-    ></video>
+    />
   );
 };
