@@ -1,0 +1,93 @@
+@import "@/assets/styles/utills/variables.scss";
+
+#myVideo {
+  position: fixed;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.card {
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.card__menu {
+  cursor: pointer;
+}
+
+.card__title {
+  font-weight: 500;
+  font-size: 28px;
+  color: $background-light;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card__subtitle {
+  font-weight: 400;
+  font-size: 16px;
+  color: $background-light;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card__time {
+  font-weight: 400;
+  font-size: 12px;
+  color: $background-light;
+}
+
+.card__timeline {
+  width: 100%;
+  height: 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card__timeline progress {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+.card__timeline progress::-webkit-progress-bar {
+  background-color: #424242;
+  border-radius: 100px;
+}
+
+.card__timeline progress::-webkit-progress-value {
+  background-color: $background-light;
+  border-radius: 100px;
+}
+
+.card__btn {
+  width: 25%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.card__btn path {
+  fill: $background-light;
+}
