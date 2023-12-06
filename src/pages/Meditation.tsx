@@ -69,7 +69,7 @@ export default function Meditation() {
 
   return (
     <>
-      <video muted loop id="myVideo" preload="auto" ref={bgVideoRef}>
+      <video muted loop id="myVideo" preload="auto" ref={bgVideoRef} playsInline>
         <source src={bg} type="video/mp4" />
       </video>
 
