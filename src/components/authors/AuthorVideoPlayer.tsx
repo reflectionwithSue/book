@@ -24,7 +24,7 @@ export const AuthorVideoPlayer: FC = () => {
   const playerRef = React.useRef(null);
 
   return (
-    <div className="w-3/4 mx-auto mb-5 player md:w-2/3 lg:w-1/2 h-20 md:h-38 lg:h-44">
+    <div className="w-full mx-auto mb-5 player md:w-2/3 lg:w-1/2 h-20 md:h-38 lg:h-44">
       {/* <iframe
         title="YouTube Video"
         width="100%"
@@ -34,11 +34,12 @@ export const AuthorVideoPlayer: FC = () => {
       /> */}
 
       <ReactPlayer
-      className="react-player"
+        className="react-player"
         url="https://www.youtube.com/watch?v=dMkBJI7vb7c"
         controls={true}
         width="100%"
         height="100%"
+        light={true}
       />
     </div>
   );
