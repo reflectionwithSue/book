@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, FC } from "react";
+import { useRef, useEffect, FC } from "react";
 import "@/assets/styles/VideoBG.scss";
 
 type VideoBGProps = {
