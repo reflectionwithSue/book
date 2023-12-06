@@ -20,6 +20,8 @@ export default function Meditation() {
 
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(true);
+  const [passedTime, setPassedTime] = useState<string>("00:00");
+  const [leftTime, setLeftTime] = useState<string>("07:31");
 
   useEffect(() => {
     const bgVideo = bgVideoRef.current;
@@ -39,19 +41,20 @@ export default function Meditation() {
     }
   };
 
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+      seconds
+    ).padStart(2, "0")}`;
+    return formattedTime;
+  };
+
+  const audioPlayer = audioPlayerRef.current;
+  const progress = progressRef.current;
+
   useEffect(() => {
-    const audioPlayer = audioPlayerRef.current;
-    const progress = progressRef.current;
-
     if (audioPlayer && progress) {
-      const updateProgress = () => {
-        const currentTime = audioPlayer.currentTime;
-        const duration = audioPlayer.duration;
-
-        const progressValue = (currentTime / duration) * 100;
-        progress.value = progressValue;
-      };
-
       audioPlayer.addEventListener("timeupdate", updateProgress);
 
       return () => {
@@ -59,6 +62,35 @@ export default function Meditation() {
       };
     }
   }, []);
+
+  const handleProgressClick = (event:React.MouseEvent<HTMLProgressElement, MouseEvent>) => {
+    if (audioPlayer) {
+      const progressBar = event.target as HTMLProgressElement;
+      const clickPosition = event.clientX;
+      const progressBarRect = progressBar.getBoundingClientRect();      
+      const progressRatio =
+        (clickPosition - progressBarRect.left) / progressBarRect.width;
+      const newTime = progressRatio * audioPlayer.duration;
+
+      audioPlayer.currentTime = newTime;
+      updateProgress();
+    }
+  };
+
+  const updateProgress = () => {
+    if (audioPlayer) {
+      const currentTime = audioPlayer.currentTime;
+      const duration = audioPlayer.duration;
+
+      const progressValue = (currentTime / duration) * 100;
+      if (progress) {
+        progress.value = progressValue;
+      }
+
+      setPassedTime(formatTime(currentTime));
+      setLeftTime(formatTime(duration - currentTime));
+    }
+  };
 
   const handlePauseClick = () => {
     const audioPlayer = audioPlayerRef.current;
@@ -68,7 +100,6 @@ export default function Meditation() {
       setIsAudioPlaying(false);
     }
   };
-  
 
   return (
     <>
@@ -93,11 +124,16 @@ export default function Meditation() {
             <div className="card__title">Runaway</div>
             <div className="card__subtitle">Smalltown Boy , Shane D</div>
             <div className="card__wrapper">
-              <div className="card__time card__time-passed">03:34</div>
+              <div className="card__time card__time-passed">{passedTime}</div>
               <div className="card__timeline">
-                <progress value="0" max="100" ref={progressRef}></progress>
+                <progress
+                  value="0"
+                  max="100"
+                  ref={progressRef}
+                  onClick={handleProgressClick}
+                ></progress>
               </div>
-              <div className="card__time card__time-left">02:04</div>
+              <div className="card__time card__time-left">{leftTime}</div>
             </div>
             <div className="card__wrapper">
               <button className="card__btn">
