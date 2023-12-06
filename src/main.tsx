@@ -4,18 +4,20 @@ import { RouterProvider } from "react-router-dom";
 import "@/assets/styles/index.scss";
 import { router } from "@/router";
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAuuphdL2PfhIwZLUfJ1WgvgkaDsjK90CQ",
-  authDomain: "sue-3193e.firebaseapp.com",
-  databaseURL: "https://sue-3193e-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "sue-3193e",
-  storageBucket: "gs://sue-3193e",
-  messagingSenderId: "188217529044",
-  appId: "1:188217529044:web:2060b5f39e3add6c5c2141"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_BASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+getStorage(app);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
