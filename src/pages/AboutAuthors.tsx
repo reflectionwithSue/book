@@ -62,8 +62,8 @@ export default function AboutAuthors() {
       <h2 className="text-center text-[1.3rem] sm:text-2xl md:text-3xl 2xl:text-4xl author-title mb-5">
         Над книгою працювали
       </h2>
-      <div className="flex flex-col gap-5 lg:gap-14 lg:flex-row lg:justify-center lg:items-center">
-        <section className="flex flex-col gap-3 lg:w-1/2 min-h-[600px] mb-5">
+      <div className="flex flex-col lg:gap-14 lg:flex-row lg:justify-center lg:items-center">
+        <section className="flex flex-col gap-3 lg:w-1/2 min-h-[600px]">
         {displayedAuthors.map((author, index) => (
             <AuthorCard authorData={author} key={author.id} index={index} />
           ))}

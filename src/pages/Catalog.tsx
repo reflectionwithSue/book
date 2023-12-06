@@ -33,7 +33,7 @@ export const Catalog: FC = () => {
     },
   ];
   return (
-    <section className="flex flex-col justify-center items-center h-full">
+    <section className="flex flex-col justify-center items-center h-3/4">
       <h1 className="mb-5">Перелік веб-глав</h1>
       <ol className="list-decimal list-outside flex flex-col">
         {chaptersList.map((chapter) => (
