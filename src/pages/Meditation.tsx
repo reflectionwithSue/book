@@ -59,7 +59,7 @@ export default function Meditation() {
     if (bgVideo) {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
-      bgVideo.style.backgroundColor = "transparent";
+      bgVideo.style.backgroundImage = "none";
     }
   };
 

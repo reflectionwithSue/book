@@ -8,8 +8,9 @@
   overflow: hidden;
   object-fit: cover;
 
-  background: url('../../../public/meditation-bg.png') no-repeat ;
+  background-image: url('../../../public/meditation-bg.png') ;
   background-size: cover;
-  background-position: top left;
-
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 2s ease-in;
 }
