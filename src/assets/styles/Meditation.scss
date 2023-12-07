@@ -6,34 +6,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: transparent;
 }
 
 .bg {
-  position: fixed;
-  z-index: -99;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("../../../public/meditation-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-  
-}
-
-.bg__content {
-  position: relative;
-  z-index: 999;
-
-  & button {
-    &:hover {
-      cursor: pointer;
-    }
-  }
+  pointer-events: none;
 }
 
 .card {
+  position: relative;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
   font-size: 18px;
@@ -45,6 +35,7 @@
   flex-direction: column;
   justify-content: flex-end;
   max-width: 640px;
+  z-index: 2;
 }
 
 .card__menu {
@@ -88,12 +79,15 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  pointer-events: auto;
+  
 }
 
 .card__timeline progress {
   width: 100%;
   height: 100%;
   border-radius: 100px;
+  pointer-events: auto;
 }
 
 .card__timeline progress::-webkit-progress-bar {
@@ -111,31 +105,9 @@
   border: none;
   background: transparent;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .card__btn path {
   fill: $background-light;
-}
-
-
-.my-node-enter {
-  opacity: 0;
-  transform: translateY(20px); // пример анимации сдвига вниз
-}
-
-.my-node-enter-active {
-  opacity: 1;
-  transform: translateY(0); // пример анимации сдвига вниз
-  transition: opacity 2000ms, transform 2000ms;
-}
-
-.my-node-exit {
-  opacity: 1;
-  transform: translateY(0); // пример анимации сдвига вниз
-}
-
-.my-node-exit-active {
-  opacity: 0;
-  transform: translateY(20px); // пример анимации сдвига вниз
-  transition: opacity 2000ms, transform 2000ms;
 }

@@ -13,7 +13,7 @@ import { Author } from "@/types/Author";
 
 export default function AboutAuthors() {
   const [displayedAuthors, setDisplayedAuthors] = useState<Author[]>([]);
-  
+
   const authorsData = [
     {
       id: "Olya",
@@ -22,7 +22,7 @@ export default function AboutAuthors() {
       imgSrc: olyaImg,
       nameAndRole: svgContentOlya,
       instaLink: "https://www.instagram.com/olga_mur_ua/",
-      instaName: "olga_mur_ua"
+      instaName: "olga_mur_ua",
     },
     {
       id: "Galya",
@@ -31,7 +31,7 @@ export default function AboutAuthors() {
       imgSrc: galyaImg,
       nameAndRole: svgContentGalya,
       instaLink: "https://www.instagram.com/di_gelen/",
-      instaName: "di_gelen"
+      instaName: "di_gelen",
     },
     {
       id: "Ira",
@@ -40,35 +40,37 @@ export default function AboutAuthors() {
       imgSrc: iraImg,
       nameAndRole: svgContentIra,
       instaLink: "https://www.instagram.com/iren_la_luna/",
-      instaName: "iren_la_luna"
+      instaName: "iren_la_luna",
     },
   ];
 
   useEffect(() => {
     const timerIds = authorsData.map((author, index) => {
       const timerId = setTimeout(() => {
-        setDisplayedAuthors(prevAuthors => [...prevAuthors, author]);
+        setDisplayedAuthors((prevAuthors) => [...prevAuthors, author]);
       }, index * 3800);
       return timerId;
     });
 
     return () => {
-      timerIds.forEach(timerId => clearTimeout(timerId));
+      timerIds.forEach((timerId) => clearTimeout(timerId));
     };
-  }, []); 
+  }, []);
 
   return (
-    <div className="container 2xl:mt-5">
-      <h2 className="text-center text-[1.3rem] sm:text-2xl md:text-3xl 2xl:text-4xl author-title mb-5">
-        Над книгою працювали
-      </h2>
-      <div className="flex flex-col lg:gap-14 lg:flex-row lg:justify-center lg:items-center">
-        <section className="flex flex-col gap-3 lg:w-1/2 min-h-[600px]">
-        {displayedAuthors.map((author, index) => (
-            <AuthorCard authorData={author} key={author.id} index={index} />
-          ))}
-        </section>
-        <AuthorVideoPlayer />
+    <div className="layout">
+      <div className="container 2xl:mt-5">
+        <h2 className="text-center text-[1.3rem] sm:text-2xl md:text-3xl 2xl:text-4xl author-title mb-5">
+          Над книгою працювали
+        </h2>
+        <div className="flex flex-col lg:gap-14 lg:flex-row lg:justify-center lg:items-center">
+          <section className="flex flex-col gap-3 lg:w-1/2 min-h-[600px]">
+            {displayedAuthors.map((author, index) => (
+              <AuthorCard authorData={author} key={author.id} index={index} />
+            ))}
+          </section>
+          <AuthorVideoPlayer />
+        </div>
       </div>
     </div>
   );
