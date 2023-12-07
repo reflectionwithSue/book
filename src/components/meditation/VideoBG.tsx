@@ -12,7 +12,6 @@ export const VideoBG:FC<VideoBGProps> = ({ videoUrl }) => {
     const bgVideo = bgVideoRef.current;
 
     if (bgVideo) {
-      bgVideo.play();
       bgVideo.playbackRate = 0.7;
     }
   }, []);

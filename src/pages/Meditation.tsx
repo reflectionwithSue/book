@@ -13,6 +13,7 @@ import meditation from "../../public/meditation.mp3";
 import { VideoBG } from "@/components/meditation/VideoBG";
 import { Loader } from "@/components/Loader";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import "@/assets/styles/VideoBG.scss";
 
 export default function Meditation() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
@@ -29,6 +30,7 @@ export default function Meditation() {
   const storage = getStorage();
   const videoRef = ref(storage, "bg-video.mp4");
   const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const fetchUri = async () => {
@@ -50,6 +52,13 @@ export default function Meditation() {
     if (audioPlayer) {
       audioPlayer.play();
       setIsAudioPlaying(true);
+    }
+
+    const bgVideo = bgVideoRef.current;
+
+    if (bgVideo) {
+      bgVideo.play();
+      bgVideo.playbackRate = 0.7;
     }
   };
 
@@ -103,56 +112,73 @@ export default function Meditation() {
   };
 
   return (
-    <section className="meditation">
-        <VideoBG videoUrl={videoUrl} />
-        <div className="card">
-          <div className="card__title">Медитація</div>
+    <>
+    { isVideoLoaded ? (
+      <section className="meditation">
+      <video
+        muted={true}
+        loop={true}
+        id="myVideo"
+        preload="auto"
+        ref={bgVideoRef}
+        playsInline={true}
+        src={videoUrl}
+      />
+      <div className="card">
+        <div className="card__title">Медитація</div>
 
-          <div className="card__wrapper">
-            <div className="card__time card__time-passed">{passedTime}</div>
-            <div className="card__timeline">
-              <progress
-                value="0"
-                max="100"
-                ref={progressRef}
-                onClick={handleProgressClick}
-              ></progress>
-            </div>
-            <div className="card__time card__time-left">{leftTime}</div>
+        <div className="card__wrapper">
+          <div className="card__time card__time-passed">{passedTime}</div>
+          <div className="card__timeline">
+            <progress
+              value="0"
+              max="100"
+              ref={progressRef}
+              onClick={handleProgressClick}
+            ></progress>
           </div>
-          <div className="card__wrapper">
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faVolumeLow} />
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faRotateLeft} />
-            </button>
-            <button className="card__btn">
-              {isAudioPlaying ? (
-                <FontAwesomeIcon
-                  icon={faPause}
-                  size="2xl"
-                  onClick={handlePauseClick}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faPlay}
-                  size="2xl"
-                  onClick={handlePlayClick}
-                />
-              )}
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faRotateRight} />
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faGauge} />
-            </button>
-          </div>
+          <div className="card__time card__time-left">{leftTime}</div>
         </div>
-        <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
-          <source src={meditation} />
-        </audio>
+        <div className="card__wrapper">
+          <button className="card__btn">
+            <FontAwesomeIcon icon={faVolumeLow} />
+          </button>
+          <button className="card__btn">
+            <FontAwesomeIcon icon={faRotateLeft} />
+          </button>
+          <button className="card__btn">
+            {isAudioPlaying ? (
+              <FontAwesomeIcon
+                icon={faPause}
+                size="2xl"
+                onClick={handlePauseClick}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faPlay}
+                size="2xl"
+                onClick={handlePlayClick}
+              />
+            )}
+          </button>
+          <button className="card__btn">
+            <FontAwesomeIcon icon={faRotateRight} />
+          </button>
+          <button className="card__btn">
+            <FontAwesomeIcon icon={faGauge} />
+          </button>
+        </div>
+      </div>
+      <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
+        <source src={meditation} />
+      </audio>
     </section>
+  
+    ) : (
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <Loader />
+      </div>
+    )}
+    </>
   );
 }
