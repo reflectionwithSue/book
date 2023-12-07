@@ -23,7 +23,7 @@ export default function Meditation() {
   const progress = progressRef.current;
 
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
-  const [isVideoLoaded, setIsVideoLoaded] = useState<boolean>(false);
+  const [isVideoPlayed, setIsVideoPlayed] = useState<boolean>(false);
   const [passedTime, setPassedTime] = useState<string>("00:00");
   const [leftTime, setLeftTime] = useState<string>("07:31");
 
@@ -37,7 +37,6 @@ export default function Meditation() {
       try {
         const downloadURL = await getDownloadURL(videoRef);
         setVideoUrl(downloadURL);
-        setIsVideoLoaded(true);
       } catch (error) {
         console.error("Error fetching video URL:", error);
       }
@@ -52,6 +51,7 @@ export default function Meditation() {
     if (audioPlayer) {
       audioPlayer.play();
       setIsAudioPlaying(true);
+      setIsVideoPlayed(true);
     }
 
     const bgVideo = bgVideoRef.current;
@@ -114,66 +114,65 @@ export default function Meditation() {
 
   return (
     <>
-    <video
+      <section className="meditation">
+      <video
         muted={true}
         loop={true}
-        id="myVideo"
         preload="auto"
         ref={bgVideoRef}
         playsInline={true}
         src={videoUrl}
+        id="myVideo"
       />
-    <section className="meditation">
-      
-      <div className="card">
-        <div className="card__title">Медитація</div>
+        <div className="card">
+          <div className="card__title">Медитація</div>
 
-        <div className="card__wrapper">
-          <div className="card__time card__time-passed">{passedTime}</div>
-          <div className="card__timeline">
-            <progress
-              value="0"
-              max="100"
-              ref={progressRef}
-              onClick={handleProgressClick}
-            ></progress>
+          <div className="card__wrapper">
+            <div className="card__time card__time-passed">{passedTime}</div>
+            <div className="card__timeline">
+              <progress
+                value="0"
+                max="100"
+                ref={progressRef}
+                onClick={handleProgressClick}
+              ></progress>
+            </div>
+            <div className="card__time card__time-left">{leftTime}</div>
           </div>
-          <div className="card__time card__time-left">{leftTime}</div>
+          <div className="card__wrapper">
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faVolumeLow} />
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </button>
+            <button className="card__btn">
+              {isAudioPlaying ? (
+                <FontAwesomeIcon
+                  icon={faPause}
+                  size="2xl"
+                  onClick={handlePauseClick}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faPlay}
+                  size="2xl"
+                  onClick={handlePlayClick}
+                />
+              )}
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faRotateRight} />
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faGauge} />
+            </button>
+          </div>
         </div>
-        <div className="card__wrapper">
-          <button className="card__btn">
-            <FontAwesomeIcon icon={faVolumeLow} />
-          </button>
-          <button className="card__btn">
-            <FontAwesomeIcon icon={faRotateLeft} />
-          </button>
-          <button className="card__btn">
-            {isAudioPlaying ? (
-              <FontAwesomeIcon
-                icon={faPause}
-                size="2xl"
-                onClick={handlePauseClick}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faPlay}
-                size="2xl"
-                onClick={handlePlayClick}
-              />
-            )}
-          </button>
-          <button className="card__btn">
-            <FontAwesomeIcon icon={faRotateRight} />
-          </button>
-          <button className="card__btn">
-            <FontAwesomeIcon icon={faGauge} />
-          </button>
-        </div>
-      </div>
-      <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
-        <source src={meditation} />
-      </audio>
-    </section>
+        <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
+          <source src={meditation} />
+        </audio>
+      </section>
     </>
   );
 }
