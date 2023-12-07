@@ -59,6 +59,7 @@ export default function Meditation() {
     if (bgVideo) {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
+      bgVideo.style.backgroundColor = "transparent";
     }
   };
 
@@ -113,9 +114,7 @@ export default function Meditation() {
 
   return (
     <>
-    { isVideoLoaded ? (
-      <section className="meditation">
-      <video
+    <video
         muted={true}
         loop={true}
         id="myVideo"
@@ -124,6 +123,8 @@ export default function Meditation() {
         playsInline={true}
         src={videoUrl}
       />
+    <section className="meditation">
+      
       <div className="card">
         <div className="card__title">Медитація</div>
 
@@ -173,12 +174,6 @@ export default function Meditation() {
         <source src={meditation} />
       </audio>
     </section>
-  
-    ) : (
-      <div className="w-full h-full flex flex-col justify-center items-center">
-        <Loader />
-      </div>
-    )}
     </>
   );
 }
