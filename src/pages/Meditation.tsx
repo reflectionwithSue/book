@@ -103,64 +103,56 @@ export default function Meditation() {
   };
 
   return (
-    <>
-      {isVideoLoaded ? (
-        <section className="meditation">
-          <VideoBG videoUrl={videoUrl} />
-          <div className="card">
-            <div className="card__title">Медитація</div>
+    <section className="meditation">
+        <VideoBG videoUrl={videoUrl} />
+        <div className="card">
+          <div className="card__title">Медитація</div>
 
-            <div className="card__wrapper">
-              <div className="card__time card__time-passed">{passedTime}</div>
-              <div className="card__timeline">
-                <progress
-                  value="0"
-                  max="100"
-                  ref={progressRef}
-                  onClick={handleProgressClick}
-                ></progress>
-              </div>
-              <div className="card__time card__time-left">{leftTime}</div>
+          <div className="card__wrapper">
+            <div className="card__time card__time-passed">{passedTime}</div>
+            <div className="card__timeline">
+              <progress
+                value="0"
+                max="100"
+                ref={progressRef}
+                onClick={handleProgressClick}
+              ></progress>
             </div>
-            <div className="card__wrapper">
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faVolumeLow} />
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faRotateLeft} />
-              </button>
-              <button className="card__btn">
-                {isAudioPlaying ? (
-                  <FontAwesomeIcon
-                    icon={faPause}
-                    size="2xl"
-                    onClick={handlePauseClick}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    size="2xl"
-                    onClick={handlePlayClick}
-                  />
-                )}
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faRotateRight} />
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faGauge} />
-              </button>
-            </div>
+            <div className="card__time card__time-left">{leftTime}</div>
           </div>
-          <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
-            <source src={meditation} />
-          </audio>
-        </section>
-      ) : (
-        <div className="container w-full h-full flex flex-col justify-center items-center">
-          <Loader />
+          <div className="card__wrapper">
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faVolumeLow} />
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </button>
+            <button className="card__btn">
+              {isAudioPlaying ? (
+                <FontAwesomeIcon
+                  icon={faPause}
+                  size="2xl"
+                  onClick={handlePauseClick}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faPlay}
+                  size="2xl"
+                  onClick={handlePlayClick}
+                />
+              )}
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faRotateRight} />
+            </button>
+            <button className="card__btn">
+              <FontAwesomeIcon icon={faGauge} />
+            </button>
+          </div>
         </div>
-      )}
-    </>
+        <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
+          <source src={meditation} />
+        </audio>
+    </section>
   );
 }
