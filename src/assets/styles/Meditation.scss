@@ -6,6 +6,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: transparent;
+}
+
+.bg {
+  position: fixed;
+  z-index: -99;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../public/meditation-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  
+}
+
+.bg__content {
+  position: relative;
+  z-index: 999;
+
+  & button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .card {
@@ -20,7 +45,6 @@
   flex-direction: column;
   justify-content: flex-end;
   max-width: 640px;
-
 }
 
 .card__menu {
@@ -91,4 +115,27 @@
 
 .card__btn path {
   fill: $background-light;
+}
+
+
+.my-node-enter {
+  opacity: 0;
+  transform: translateY(20px); // пример анимации сдвига вниз
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transform: translateY(0); // пример анимации сдвига вниз
+  transition: opacity 2000ms, transform 2000ms;
+}
+
+.my-node-exit {
+  opacity: 1;
+  transform: translateY(0); // пример анимации сдвига вниз
+}
+
+.my-node-exit-active {
+  opacity: 0;
+  transform: translateY(20px); // пример анимации сдвига вниз
+  transition: opacity 2000ms, transform 2000ms;
 }
