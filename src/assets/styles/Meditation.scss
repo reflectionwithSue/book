@@ -24,90 +24,120 @@
 
 .card {
   position: relative;
+  box-sizing: border-box;
   font-family: Helvetica, sans-serif;
-  font-weight: 300;
-  font-size: 18px;
   width: 100%;
-  height: 95%;
+  height: 90%;
   border-radius: 20px;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-around;
   max-width: 640px;
   z-index: 2;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33.33%;
+    font-weight: 300;
+    font-size: 28px;
+    color: $background-light;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33.33%;
+  }
+
+  &__text {
+    font-weight: 200;
+    font-size: 13px;
+    line-height: 20px;
+    color: $background-light;
+    text-align: center;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 33.33%;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  &__time {
+    font-weight: 400;
+    font-size: 12px;
+    color: $background-light;
+  }
+
+  &__timeline {
+    width: 100%;
+    height: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  &__timeline progress {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    pointer-events: auto;
+  }
+
+  &__timeline progress::-webkit-progress-bar {
+    background-color: #424242;
+    border-radius: 100px;
+  }
+
+  &__timeline progress::-webkit-progress-value {
+    background-color: $background-light;
+    border-radius: 100px;
+  }
+
+  &__btn {
+    width: 25%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  &__btn path {
+    fill: $background-light;
+  }
 }
 
-.card__menu {
-  cursor: pointer;
+.my-node-enter {
+  opacity: 0;
 }
 
-.card__title {
-  font-weight: 500;
-  font-size: 28px;
-  color: $background-light;
-  text-align: center;
-  margin-bottom: 10px;
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 2000ms;
 }
 
-.card__subtitle {
-  font-weight: 400;
-  font-size: 16px;
-  color: $background-light;
-  text-align: center;
-  cursor: pointer;
+.my-node-exit {
+  opacity: 1;
 }
 
-.card__wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.card__time {
-  font-weight: 400;
-  font-size: 12px;
-  color: $background-light;
-}
-
-.card__timeline {
-  width: 100%;
-  height: 4px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  pointer-events: auto;
-  
-}
-
-.card__timeline progress {
-  width: 100%;
-  height: 100%;
-  border-radius: 100px;
-  pointer-events: auto;
-}
-
-.card__timeline progress::-webkit-progress-bar {
-  background-color: #424242;
-  border-radius: 100px;
-}
-
-.card__timeline progress::-webkit-progress-value {
-  background-color: $background-light;
-  border-radius: 100px;
-}
-
-.card__btn {
-  width: 25%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.card__btn path {
-  fill: $background-light;
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 2000ms;
 }

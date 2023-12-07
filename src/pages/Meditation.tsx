@@ -12,13 +12,16 @@ import "@/assets/styles/Meditation.scss";
 import meditation from "../../public/meditation.mp3";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "@/assets/styles/VideoBG.scss";
+import { CSSTransition } from "react-transition-group";
 
 export default function Meditation() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLProgressElement>(null);
+  const nodeRef = useRef(null);
   const progress = progressRef.current;
 
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
   const [passedTime, setPassedTime] = useState<string>("00:00");
   const [leftTime, setLeftTime] = useState<string>("07:31");
   const [videoUrl, setVideoUrl] = useState<string>("");
@@ -54,6 +57,7 @@ export default function Meditation() {
     if (bgVideo) {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
+      setIsVideoPlaying(true);
     }
   };
 
@@ -121,48 +125,68 @@ export default function Meditation() {
           src={videoUrl}
         ></video>
         <div className="card">
+          <div className="card__subtitle">
+            <CSSTransition
+              in={!isVideoPlaying}
+              timeout={2000}
+              classNames="my-node"
+              unmountOnExit
+              nodeRef={nodeRef}
+            >
+              <p className="card__text" ref={nodeRef}>
+                Звільніть кілька хвилин для себе та приготуйтеся відпустити
+                повсякденні турботи. <br />
+                Рекомендуємо одягнути навушники, знайти спокійне місце, де вам
+                буде зручно сидіти чи лежати. <br />
+                Бажаємо приємної подорожі у власний внутрішній світ.
+              </p>
+            </CSSTransition>
+          </div>
+
           <div className="card__title">Медитація</div>
 
-          <div className="card__wrapper">
-            <div className="card__time card__time-passed">{passedTime}</div>
-            <div className="card__timeline">
-              <progress
-                value="0"
-                max="100"
-                ref={progressRef}
-                onClick={handleProgressClick}
-              ></progress>
+          <div className="card__controls">
+            <div className="card__wrapper">
+              <div className="card__time card__time-passed">{passedTime}</div>
+              <div className="card__timeline">
+                <progress
+                  value="0"
+                  max="100"
+                  ref={progressRef}
+                  onClick={handleProgressClick}
+                ></progress>
+              </div>
+              <div className="card__time card__time-left">{leftTime}</div>
             </div>
-            <div className="card__time card__time-left">{leftTime}</div>
-          </div>
-          <div className="card__wrapper">
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faVolumeLow} />
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faRotateLeft} />
-            </button>
-            <button className="card__btn">
-              {isAudioPlaying ? (
-                <FontAwesomeIcon
-                  icon={faPause}
-                  size="2xl"
-                  onClick={handlePauseClick}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faPlay}
-                  size="2xl"
-                  onClick={handlePlayClick}
-                />
-              )}
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faRotateRight} />
-            </button>
-            <button className="card__btn">
-              <FontAwesomeIcon icon={faGauge} />
-            </button>
+            <div className="card__wrapper">
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faVolumeLow} />
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faRotateLeft} />
+              </button>
+              <button className="card__btn">
+                {isAudioPlaying ? (
+                  <FontAwesomeIcon
+                    icon={faPause}
+                    size="2xl"
+                    onClick={handlePauseClick}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPlay}
+                    size="2xl"
+                    onClick={handlePlayClick}
+                  />
+                )}
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faRotateRight} />
+              </button>
+              <button className="card__btn">
+                <FontAwesomeIcon icon={faGauge} />
+              </button>
+            </div>
           </div>
         </div>
         <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
