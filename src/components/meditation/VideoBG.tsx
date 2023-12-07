@@ -12,19 +12,19 @@ export const VideoBG:FC<VideoBGProps> = ({ videoUrl }) => {
     const bgVideo = bgVideoRef.current;
 
     if (bgVideo) {
-      bgVideo.play();
       bgVideo.playbackRate = 0.7;
     }
   }, []);
   return (
     <video
-      muted
-      loop
+      muted={true}
+      loop={true}
       id="myVideo"
       preload="auto"
       ref={bgVideoRef}
-      playsInline
+      playsInline={true}
       src={videoUrl}
+      autoPlay={true}
     />
   );
 };
