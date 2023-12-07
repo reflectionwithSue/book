@@ -122,7 +122,6 @@ export default function Meditation() {
         ref={bgVideoRef}
         playsInline={true}
         src={videoUrl}
-        poster="../../public/meditation-bg.png"
       />
     <section className="meditation">
       
