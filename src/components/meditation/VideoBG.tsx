@@ -13,6 +13,7 @@ export const VideoBG:FC<VideoBGProps> = ({ videoUrl }) => {
 
     if (bgVideo) {
       bgVideo.playbackRate = 0.7;
+      bgVideo.play();
     }
   }, []);
   return (
@@ -24,7 +25,6 @@ export const VideoBG:FC<VideoBGProps> = ({ videoUrl }) => {
       ref={bgVideoRef}
       playsInline={true}
       src={videoUrl}
-      autoPlay={true}
     />
   );
 };
