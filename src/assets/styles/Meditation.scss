@@ -55,9 +55,16 @@
     height: 33.33%;
   }
 
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 0.5rem;
+  }
+
   &__text {
-    font-weight: 200;
-    font-size: 13px;
+    font-weight: 300;
+    font-size: 1rem;
     line-height: 20px;
     color: $background-light;
     text-align: center;

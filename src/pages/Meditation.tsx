@@ -133,13 +133,19 @@ export default function Meditation() {
               unmountOnExit
               nodeRef={nodeRef}
             >
-              <p className="card__text" ref={nodeRef}>
-                Звільніть кілька хвилин для себе та приготуйтеся відпустити
-                повсякденні турботи. <br />
-                Рекомендуємо одягнути навушники, знайти спокійне місце, де вам
-                буде зручно сидіти чи лежати. <br />
-                Бажаємо приємної подорожі у власний внутрішній світ.
-              </p>
+              <div ref={nodeRef} className="card__text-container">
+                <span className="card__text" >
+                  Звільніть кілька хвилин для себе та приготуйтеся відпустити
+                  повсякденні турботи.
+                </span>
+                <span className="card__text">
+                  Рекомендуємо одягнути навушники, знайти спокійне місце, де вам
+                  буде зручно сидіти чи лежати.
+                </span>
+                <span className="card__text">
+                  Бажаємо приємної подорожі у власний внутрішній світ.
+                </span>
+              </div>
             </CSSTransition>
           </div>
 
