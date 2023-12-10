@@ -5,6 +5,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -19,7 +20,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  pointer-events: none;
 }
 
 .card {
@@ -27,14 +27,14 @@
   box-sizing: border-box;
   font-family: Helvetica, sans-serif;
   width: 100%;
-  height: 90%;
+  height: 93%;
   border-radius: 20px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   max-width: 640px;
-  z-index: 2;
+  z-index: 999;
 
   &__title {
     display: flex;
@@ -64,7 +64,7 @@
 
   &__text {
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 20px;
     color: $background-light;
     text-align: center;
@@ -77,57 +77,13 @@
     height: 33.33%;
   }
 
-  &__wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  &__time {
-    font-weight: 400;
-    font-size: 12px;
+  &__time-text {
+    font-size: 0.75rem;
+    opacity: 0.38;
+    letter-spacing: 0.2;
+    font-weight: 300;
     color: $background-light;
-  }
 
-  &__timeline {
-    width: 100%;
-    height: 4px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    pointer-events: auto;
-  }
-
-  &__timeline progress {
-    width: 100%;
-    height: 100%;
-    border-radius: 100px;
-    pointer-events: auto;
-  }
-
-  &__timeline progress::-webkit-progress-bar {
-    background-color: #424242;
-    border-radius: 100px;
-  }
-
-  &__timeline progress::-webkit-progress-value {
-    background-color: $background-light;
-    border-radius: 100px;
-  }
-
-  &__btn {
-    width: 25%;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    pointer-events: auto;
-  }
-
-  &__btn path {
-    fill: $background-light;
   }
 }
 
@@ -147,4 +103,50 @@
 .my-node-exit-active {
   opacity: 0;
   transition: opacity 2000ms;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  transition: opacity 0.5s;
+}
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root :hover {
+  opacity: 0.8;
+}
+
+.speed-box {
+  position: relative;
+}
+
+.speed-select {
+  position: absolute;
+  left: 1.8rem;
+  bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #ffffff12;
+  outline: none;
+}
+
+option {
+  font-family: Helvetica, sans-serif;
+  font-weight: 200;
+  color: $background-light;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: #ffffff65;
+  }
+
+  &:active {
+    background-color: $background-light;
+  }
+}
+
+#myVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: cover;
 }

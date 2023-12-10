@@ -1,31 +1,32 @@
 import { useRef, useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGauge,
-  faPause,
-  faPlay,
-  faRotateLeft,
-  faRotateRight,
-  faVolumeLow,
-} from "@fortawesome/free-solid-svg-icons";
 import "@/assets/styles/Meditation.scss";
 import meditation from "../../public/meditation.mp3";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import "@/assets/styles/VideoBG.scss";
-import { CSSTransition } from "react-transition-group";
+
+import { styled } from "@mui/material/styles";
+import Slider from "@mui/material/Slider";
+import IconButton from "@mui/material/IconButton";
+import Stack from "@mui/material/Stack";
+import PauseRounded from "@mui/icons-material/PauseRounded";
+import PlayArrowRounded from "@mui/icons-material/PlayArrowRounded";
+import FastForwardRounded from "@mui/icons-material/FastForwardRounded";
+import FastRewindRounded from "@mui/icons-material/FastRewindRounded";
+import VolumeUpRounded from "@mui/icons-material/VolumeUpRounded";
+import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
+import Box from "@mui/material/Box";
+import { TextInfo } from "@/components/meditation/TextInfo";
 
 export default function Meditation() {
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLProgressElement>(null);
-  const nodeRef = useRef(null);
   const progress = progressRef.current;
 
-  const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
+  const [isAudioPlaing, setIsAudioPlaing] = useState<boolean>(false);
   const [passedTime, setPassedTime] = useState<string>("00:00");
   const [leftTime, setLeftTime] = useState<string>("07:31");
   const [videoUrl, setVideoUrl] = useState<string>("");
-
+  const [paused, setPaused] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(60);
   const storage = getStorage();
   const videoRef = ref(storage, "bg-video.mp4");
   const bgVideoRef = useRef<HTMLVideoElement>(null);
@@ -47,17 +48,22 @@ export default function Meditation() {
   }, []);
 
   const handlePlayClick = () => {
-    if (audioPlayer) {
+    setPaused(!paused);
+
+    if (paused && audioPlayer && bgVideo) {
+      audioPlayer.pause();
+      bgVideo.pause();
+    } else if (!paused && audioPlayer && bgVideo) {
       audioPlayer.play();
-      setIsAudioPlaying(true);
-    }
-
-    const bgVideo = bgVideoRef.current;
-
-    if (bgVideo) {
       bgVideo.play();
       bgVideo.playbackRate = 0.7;
-      setIsVideoPlaying(true);
+    }
+
+    if (!isAudioPlaing) {
+      setIsAudioPlaing(true);
+      if (audioPlayer) {
+        audioPlayer.volume = volume / 100;
+      }
     }
   };
 
@@ -70,19 +76,12 @@ export default function Meditation() {
     return formattedTime;
   };
 
-  const handleProgressClick = (
-    event: React.MouseEvent<HTMLProgressElement, MouseEvent>
-  ) => {
+  const handleProgressClick = (_: Event, value: number | number[]) => {
     if (audioPlayer) {
-      const progressBar = event.target as HTMLProgressElement;
-      const clickPosition = event.clientX;
-      const progressBarRect = progressBar.getBoundingClientRect();
-      const progressRatio =
-        (clickPosition - progressBarRect.left) / progressBarRect.width;
-      const newTime = progressRatio * audioPlayer.duration;
+      const newTime = (audioPlayer.duration * (value as number)) / 100;
+      console.log(audioPlayer.duration, value);
 
       audioPlayer.currentTime = newTime;
-      updateProgress();
     }
   };
 
@@ -101,16 +100,37 @@ export default function Meditation() {
     }
   };
 
-  const handlePauseClick = () => {
+  const handleSpeedForwardClick = () => {
     if (audioPlayer) {
-      audioPlayer.pause();
-      setIsAudioPlaying(false);
-    }
-
-    if (bgVideo) {
-      bgVideo.pause();
+      audioPlayer.currentTime += 10;
     }
   };
+
+  const handleSpeedBackClick = () => {
+    if (audioPlayer) {
+      audioPlayer.currentTime -= 10;
+    }
+  };
+
+  const getProgressValue = () => {
+    if (audioPlayer) {
+      return (audioPlayer.currentTime * 100) / audioPlayer.duration;
+    }
+  };
+
+  const mainIconColor = "#EDE5D0";
+
+  const Widget = styled("div")(() => ({
+    padding: 16,
+    borderRadius: 16,
+    width: "100%",
+    maxWidth: "100%",
+    margin: "auto",
+    position: "relative",
+    zIndex: 1,
+    backgroundColor: "#ffffff12",
+    backdropFilter: "blur(0.6px)",
+  }));
 
   return (
     <div className="bg">
@@ -126,75 +146,144 @@ export default function Meditation() {
         ></video>
         <div className="card">
           <div className="card__subtitle">
-            <CSSTransition
-              in={!isVideoPlaying}
-              timeout={2000}
-              classNames="my-node"
-              unmountOnExit
-              nodeRef={nodeRef}
-            >
-              <div ref={nodeRef} className="card__text-container">
-                <span className="card__text" >
-                  Звільніть кілька хвилин для себе та приготуйтеся відпустити
-                  повсякденні турботи.
-                </span>
-                <span className="card__text">
-                  Рекомендуємо одягнути навушники, знайти спокійне місце, де вам
-                  буде зручно сидіти чи лежати.
-                </span>
-                <span className="card__text">
-                  Бажаємо приємної подорожі у власний внутрішній світ.
-                </span>
-              </div>
-            </CSSTransition>
+            <TextInfo isAudioPlaing={isAudioPlaing} />
           </div>
 
           <div className="card__title">Медитація</div>
 
           <div className="card__controls">
-            <div className="card__wrapper">
-              <div className="card__time card__time-passed">{passedTime}</div>
-              <div className="card__timeline">
-                <progress
-                  value="0"
-                  max="100"
-                  ref={progressRef}
-                  onClick={handleProgressClick}
-                ></progress>
-              </div>
-              <div className="card__time card__time-left">{leftTime}</div>
-            </div>
-            <div className="card__wrapper">
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faVolumeLow} />
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faRotateLeft} />
-              </button>
-              <button className="card__btn">
-                {isAudioPlaying ? (
-                  <FontAwesomeIcon
-                    icon={faPause}
-                    size="2xl"
-                    onClick={handlePauseClick}
+            <Widget>
+              <Slider
+                aria-label="time-indicator"
+                size="small"
+                value={getProgressValue()}
+                min={0}
+                step={1}
+                onChange={handleProgressClick}
+                sx={{
+                  color: "#EDE5D0",
+                  height: 4,
+                  "& .MuiSlider-thumb": {
+                    width: 8,
+                    height: 8,
+                    transition: "0.3s cubic-bezier(.47,1.64,.41,.8)",
+                    "&:before": {
+                      boxShadow: "0 2px 12px 0 rgb(255 255 255 / 16%)",
+                    },
+                    "&:hover, &.Mui-focusVisible": {
+                      boxShadow: `0px 0px 0px 8px rgb(255 255 255 / 16%)`,
+                    },
+                    "&.Mui-active": {
+                      width: 20,
+                      height: 20,
+                    },
+                  },
+                  "& .MuiSlider-rail": {
+                    opacity: 0.28,
+                  },
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  mt: -2,
+                }}
+              >
+                <span className="card__time-text">{passedTime}</span>
+                <span className="card__time-text">-{leftTime}</span>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: -1,
+                }}
+              >
+                <IconButton
+                  aria-label="previous song"
+                  onClick={handleSpeedBackClick}
+                >
+                  <FastRewindRounded
+                    fontSize="large"
+                    htmlColor={mainIconColor}
                   />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    size="2xl"
-                    onClick={handlePlayClick}
+                </IconButton>
+                <IconButton
+                  aria-label={paused ? "play" : "pause"}
+                  onClick={handlePlayClick}
+                >
+                  {!paused ? (
+                    <PlayArrowRounded
+                      sx={{ fontSize: "3rem" }}
+                      htmlColor={mainIconColor}
+                    />
+                  ) : (
+                    <PauseRounded
+                      sx={{ fontSize: "3rem" }}
+                      htmlColor={mainIconColor}
+                    />
+                  )}
+                </IconButton>
+
+                <IconButton
+                  aria-label="next song"
+                  onClick={handleSpeedForwardClick}
+                >
+                  <FastForwardRounded
+                    fontSize="large"
+                    htmlColor={mainIconColor}
                   />
-                )}
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faRotateRight} />
-              </button>
-              <button className="card__btn">
-                <FontAwesomeIcon icon={faGauge} />
-              </button>
-            </div>
+                </IconButton>
+              </Box>
+              <Stack
+                spacing={2}
+                direction="row"
+                sx={{ mb: 1, px: 1 }}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <VolumeDownRounded htmlColor={mainIconColor} />
+                <Slider
+                  aria-label="Volume"
+                  value={volume}
+                  min={0}
+                  step={1}
+                  max={100}
+                  sx={{
+                    color: "#EDE5D0",
+                    width: "60%",
+
+                    "& .MuiSlider-track": {
+                      border: "none",
+                    },
+                    "& .MuiSlider-thumb": {
+                      width: 24,
+                      height: 24,
+                      backgroundColor: "#EDE5D0",
+                      "&:before": {
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.4)",
+                      },
+                      "&:hover, &.Mui-focusVisible, &.Mui-active": {
+                        boxShadow: "none",
+                      },
+                    },
+                  }}
+                  onChange={(_, value) => {
+                    setVolume(value as number);
+                    if (audioPlayer) {
+                      audioPlayer.volume = (value as number) / 100;
+                    }
+                  }}
+                />
+                <VolumeUpRounded htmlColor={mainIconColor} />
+              </Stack>
+            </Widget>
           </div>
         </div>
+
         <audio ref={audioPlayerRef} onTimeUpdate={updateProgress}>
           <source src={meditation} />
         </audio>

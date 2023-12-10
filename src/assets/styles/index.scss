@@ -166,22 +166,6 @@ img {
 .player {
   opacity: 0;
   animation: loading 2s linear 13s forwards;
-  /* min-height: 150px;
-
-  @media (min-width: 440px) {
-    min-height: 200px;
-  }
-  @media (min-width: 640px) {
-    min-height: 300px;
-  }
-
-  @media (min-width: 1280px) {
-    min-height: 350px;
-  }
-  @media (min-width: 1536px) {
-    min-height: 450px;
-  } */
-
   position: relative;
   padding-top: 56.25%;
 
