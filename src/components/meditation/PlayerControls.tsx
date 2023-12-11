@@ -19,7 +19,7 @@ type PlayerControlsProps = {
 export const PlayerControls: FC<PlayerControlsProps> = memo(
   ({ bgVideo, isAudioPlaing, setIsAudioPlaing, audioPlayer }) => {
     const [paused, setPaused] = useState<boolean>(false);
-    
+
     const handlePlayClick = () => {
       setPaused(!paused);
 

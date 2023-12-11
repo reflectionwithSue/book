@@ -11,13 +11,17 @@ type VolumeControlsProps = {
 export const VolumeControls: FC<VolumeControlsProps> = memo(
   ({ audioPlayer }) => {
     const [volume, setVolume] = useState<number>(70);
+    const [lastVolume, setLastVolume] = useState<number>(volume);
     const mainIconColor = "#EDE5D0";
 
-    useEffect(() => {
+    const handleVolumeChange = (_: Event, newValue: number | number[]) => {
+      const newVolume = newValue as number;
+      setVolume(newVolume);
       if (audioPlayer) {
-        audioPlayer.volume = volume / 100;
+        audioPlayer.volume = newVolume / 100;
+        setLastVolume(newVolume);
       }
-    }, [volume]);
+    };
 
     return (
       <Stack
@@ -50,9 +54,7 @@ export const VolumeControls: FC<VolumeControlsProps> = memo(
               },
             },
           }}
-          onChange={(_, value) => {
-            setVolume(value as number);
-          }}
+          onChange={handleVolumeChange}
         />
         <VolumeUpRounded htmlColor={mainIconColor} />
       </Stack>
