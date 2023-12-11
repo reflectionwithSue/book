@@ -3,22 +3,19 @@ import VolumeDownRounded from "@mui/icons-material/VolumeDownRounded";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 import { FC, useState, useEffect, memo } from "react";
-import React from "react";
 
 type VolumeControlsProps = {
-  audioPlayerRef: React.RefObject<HTMLAudioElement>;
+  audioPlayer: HTMLAudioElement;
 };
 
 export const VolumeControls: FC<VolumeControlsProps> = memo(
-  ({ audioPlayerRef }) => {
+  ({ audioPlayer }) => {
     const [volume, setVolume] = useState<number>(70);
     const mainIconColor = "#EDE5D0";
 
     useEffect(() => {
-      console.log(audioPlayerRef);
-
-      if (audioPlayerRef.current) {
-        audioPlayerRef.current.volume = volume / 100;
+      if (audioPlayer) {
+        audioPlayer.volume = volume / 100;
       }
     }, [volume]);
 

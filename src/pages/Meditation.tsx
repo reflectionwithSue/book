@@ -4,6 +4,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import { TextInfo } from "@/components/meditation/TextInfo";
 import { PlayerControls } from "@/components/meditation/PlayerControls";
+import meditation from "../../public/meditation.mp3";
 
 export default function Meditation() {
   const [videoUrl, setVideoUrl] = useState<string>("");
@@ -11,8 +12,10 @@ export default function Meditation() {
   const storage = getStorage();
   const videoRef = ref(storage, "bg-video.mp4");
   const bgVideoRef = useRef<HTMLVideoElement>(null);
+  const audioPlayerRef = useRef<HTMLAudioElement>(null);
 
   const bgVideo = bgVideoRef.current;
+  const audioPlayer = audioPlayerRef.current;
 
   useEffect(() => {
     const fetchUri = async () => {
@@ -47,9 +50,13 @@ export default function Meditation() {
             bgVideo={bgVideo}
             isAudioPlaing={isAudioPlaing}
             setIsAudioPlaing={setIsAudioPlaing}
+            audioPlayer={audioPlayer as HTMLAudioElement}
           />
         </div>
       </section>
+      <audio ref={audioPlayerRef} >
+          <source src={meditation} />
+        </audio>
     </div>
   );
 }
