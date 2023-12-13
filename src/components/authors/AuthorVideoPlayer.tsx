@@ -25,7 +25,7 @@ export const AuthorVideoPlayer: FC = () => {
   const playerRef = React.useRef(null);
 
   return (
-    <div className="w-full mx-auto mb-5 player lg:w-1/2 h-24 md:h-38 lg:h-44 mt-8 2xl:mt-0">
+    <div className="w-full mx-auto mb-5 player lg:w-1/2 h-24 md:h-38 lg:h-44 mt-5 2xl:mt-0">
       <ReactPlayer
         className="react-player"
         url="https://www.youtube.com/watch?v=dMkBJI7vb7c"
