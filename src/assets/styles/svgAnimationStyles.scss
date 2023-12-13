@@ -1,7 +1,7 @@
 @import "@/assets/styles/utills/variables.scss";
 
 
-path {
+.path-name, .path-circle, .path-role, .path-name--slow, .path-name--slow-more, .path-role--slow, .path-role--slow-more {
   stroke-width: 1;
   stroke: $background-dark;
   @media (prefers-color-scheme: dark) {

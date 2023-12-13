@@ -46,7 +46,7 @@ export const CactusText: FC = () => {
         </CactusListItem>
       </ul>
 
-      <p className="mt-4 text-right">
+      <p className="mt-8 text-center md:text-right">
         <strong>Цікаво, а який би кактус зобразила Сью?!</strong>
       </p>
     </div>

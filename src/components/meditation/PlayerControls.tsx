@@ -104,8 +104,8 @@ export const PlayerControls: FC<PlayerControlsProps> = memo(
               <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
             </IconButton>
           </Box>
-          <VolumeControls audioPlayer={audioPlayer} />
-        </Widget>
+{/*           <VolumeControls audioPlayer={audioPlayer} />
+ */}        </Widget>
       </div>
     );
   }

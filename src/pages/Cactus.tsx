@@ -24,7 +24,7 @@ export const Cactus: FC = () => {
     <div className="layout">
       <div className="container 2xl:mt-5">
         <div className="flex items-center gap-3">
-          <h2 className="text-center text-[1.2rem] sm:text-2xl md:text-3xl 2xl:text-4xl author-title mt-3 mb-5">
+          <h2 className="text-center text-[1.2rem] sm:text-2xl md:text-3xl 2xl:text-4xl mt-3 mb-5">
             Ключ до техніки "Кактус"
           </h2>
           {!isLargeDisplay && <CactusSvg className="w-28 h-28" />}
