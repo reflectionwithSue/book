@@ -2,8 +2,8 @@
 
 
 path {
-  stroke: $background-dark;
   stroke-width: 1;
+  stroke: $background-dark;
   @media (prefers-color-scheme: dark) {
     stroke: $background-light;
   }

@@ -1,0 +1,47 @@
+@import "@/assets/styles/utills/variables.scss";
+
+.st01 {
+  fill: none;
+  stroke: $background-dark;
+  stroke-width: 0.75;
+  stroke-miterlimit: 10;
+
+  @media (prefers-color-scheme: dark) {
+    stroke: $background-light;
+  }
+}
+.st10 {
+  fill: $background-dark;
+  @media (prefers-color-scheme: dark) {
+    fill: $background-light;
+  }
+}
+.st21 {
+  fill: none;
+  stroke-width: 0.75;
+  stroke-miterlimit: 10;
+  stroke: $background-dark;
+
+  @media (prefers-color-scheme: dark) {
+    stroke: $background-light;
+  }
+}
+.st31 {
+  fill: #489094;
+  stroke: $background-dark;
+  stroke-miterlimit: 10;
+
+  @media (prefers-color-scheme: dark) {
+    stroke: $background-light;
+  }
+}
+
+.cactus-list-item {
+  &::before {
+    content: url("../../../public/mark-list.svg");
+    display: block;
+    width: 9px;
+    height: 9px;
+    margin-right: 9px;
+  }
+}
