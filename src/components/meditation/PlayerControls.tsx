@@ -60,7 +60,6 @@ export const PlayerControls: FC<PlayerControlsProps> = memo(
       position: "relative",
       zIndex: 1,
       backgroundColor: "#ffffff12",
-      backdropFilter: "blur(0.6px)",
     }));
     return (
       <div className="card__controls">
