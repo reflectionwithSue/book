@@ -7,18 +7,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: loading 4s linear forwards;
-
-}
-
-@keyframes loading {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 
 .bg {
