@@ -43,5 +43,9 @@
     width: 9px;
     height: 9px;
     margin-right: 9px;
+
+    @media (prefers-color-scheme: dark) {
+    content: url("../../../public/mark-list-night.svg");
+    }
   }
 }
