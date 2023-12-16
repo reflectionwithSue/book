@@ -1,24 +1,17 @@
 import { CactusSvg } from "@/components/cactus/CactusSvg";
 import { CactusText } from "@/components/cactus/CactusText";
 import "@/assets/styles/Cactus.scss";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
+import { DisplaySizeContext } from "@/components/context/DisplaySizeContext";
 
 export const Cactus: FC = () => {
-  const [isLargeDisplay, setIsLargeDisplay] = useState(
-    window.innerWidth > 1024
-  );
+  const { dispSize } = useContext(DisplaySizeContext);
+
+  const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 1024);
 
   useEffect(() => {
-    const handleWindowResize = () => {
-      setIsLargeDisplay(window.innerWidth > 1024);
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+    setIsLargeDisplay(dispSize > 1024);
+  }, [dispSize]);
 
   return (
     <div className="layout">

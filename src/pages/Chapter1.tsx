@@ -50,7 +50,6 @@ const Chapter1: FC = () => {
               style={{
                 width: "100%",
                 height: "80%",
-                border: "1px solid black",
               }}
               modules={{
                 clipboard: {

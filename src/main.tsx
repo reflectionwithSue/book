@@ -5,6 +5,8 @@ import "@/assets/styles/index.scss";
 import { router } from "@/router";
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import { ThemeContextProvider } from "@/components/context/ThemeContext";
+import { DisplaySizeContextProvider} from '@/components/context/DisplaySizeContext'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -21,6 +23,10 @@ getStorage(app);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeContextProvider>
+      <DisplaySizeContextProvider>
+      <RouterProvider router={router} />
+      </DisplaySizeContextProvider>
+    </ThemeContextProvider>
   </React.StrictMode>
 );
