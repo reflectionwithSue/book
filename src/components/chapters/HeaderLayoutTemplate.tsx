@@ -2,62 +2,107 @@ import { FiSettings } from "react-icons/fi";
 import IconButton from "@mui/material/IconButton";
 import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "@/components/context/ThemeContext";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import TextIncreaseIcon from "@mui/icons-material/TextIncrease";
+import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
+import "@/assets/styles/LayoutTemplate.scss";
 
 export const HeaderLayoutTemplate = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(theme === "dark");
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setIsDarkTheme(theme === "dark");
-    console.log("change theme");
   }, [theme]);
 
-  /*  useEffect(() => {
-    // получаю значение темы приложения
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const changeHandler = () => setIsDarkTheme(mediaQuery.matches);
+  const actions = [
+    {
+      icon: (
+        <TextDecreaseIcon
+          style={{
+            color: isDarkTheme ? "#ede5d0" : "#432816",
+          }}
+        />
+      ),
+      name: "TextDecrease",
+    },
+    {
+      icon: (
+        <TextIncreaseIcon
+          style={{
+            color: isDarkTheme ? "#ede5d0" : "#432816",
+          }}
+        />
+      ),
+      name: "TextIncrease",
+    },
+    {
+      icon: isDarkTheme ? (
+        <LightModeIcon
+          style={{
+            color: isDarkTheme ? "#ede5d0" : "#432816",
+          }}
+        />
+      ) : (
+        <DarkModeIcon
+          style={{
+            color: isDarkTheme ? "#ede5d0" : "#432816",
+          }}
+        />
+      ),
+      name: isDarkTheme ? "LightMode" : "DarkMode",
+      click: () => {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        document.documentElement.setAttribute("data-theme", newTheme);
+        setOpen(false);
+      },
+    },
+  ];
 
-    mediaQuery.addEventListener("change", changeHandler);
+  /* const changeFontSize = (newSize: string) => {
+    const paragraphs = contentRef.current.querySelectorAll("p");
 
-    return () => mediaQuery.removeEventListener("change", changeHandler);
-  }, []); */
-
-  /* 
-  useEffect(() => {
-    // Добавляем или удаляем класс в зависимости от текущей темы
-    if (isDarkTheme) {
-      document.documentElement.classList.add('dark-theme');
-    } else {
-      document.documentElement.classList.remove('dark-theme');
-    }
-  }, [isDarkTheme]);
-
-  const toggleTheme = () => {
-    const newTheme = userToggle === null ? !isDarkTheme : !userToggle;
-    setUserToggle(newTheme);
-    setIsDarkTheme(newTheme);
-
-    // Сохраняем значение темы в localStorage
-    localStorage.setItem("theme", String(newTheme));
-  };
-
-  */
-
-  /* const toggleTheme = () => {
-    // Инвертировать текущее значение темы и установить его
-    setIsDarkTheme((prevTheme) => !prevTheme);
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.fontSize = newSize;
+    });
   }; */
 
   return (
-    <header className="flex justify-end self-end h-[5vh]">
-      <IconButton
-        aria-label="delete"
-        size="small"
-        sx={{ color: isDarkTheme ? "#ede5d0" : "#432816" }}
+    <header className="flex justify-end h-[5vh] w-full">
+      <SpeedDial
+        ariaLabel="toolsBar"
+        sx={{ display: "flex", justifyContent: "flex-end" }}
+        icon={
+          <IconButton
+            style={{
+              color: isDarkTheme ? "#ede5d0" : "#432816",
+            }}
+            sx={{
+              backgroundColor: "transparent",
+            }}
+            onClick={() => setOpen(!open)}
+          >
+            <FiSettings />
+          </IconButton>
+        }
+        direction="left"
+        open={open}
       >
-        <FiSettings />
-      </IconButton>
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            onClick={action.click}
+            className="custom-speed-dial-action"
+          />
+        ))}
+      </SpeedDial>
     </header>
   );
 };

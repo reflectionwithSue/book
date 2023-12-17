@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "quill/dist/quill.snow.css";
 import { getText, updateText } from "@/api/text";
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from "@mui/material/Snackbar";
 
 type Chapter = {
   id: number;
   title: string;
 };
+
 export const AddChaptersText = () => {
   const chaptersList = [
     { id: 0, title: "Обрати главу" },
@@ -21,15 +22,20 @@ export const AddChaptersText = () => {
   const [selectedChapter, setSelectedChapter] = useState<Chapter>(
     chaptersList[0]
   );
-  const handleClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleClose = (
+    _event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
 
-  const handleChapterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChapterChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedTitle = event.target.value;
     const chapter = chaptersList.find((item) => item.title === selectedTitle);
 
@@ -56,14 +62,22 @@ export const AddChaptersText = () => {
 
     load();
   }, [selectedChapter]);
+
+  const handleChange = (content: string, _delta: any, _source: any, editor: any) => {
+    setText(editor.getHTML());
+  };
+
   return (
-    <>
+    <div className="layout">
       <form
         className="flex flex-col items-center gap-3 h-5/6"
         onSubmit={submitForm}
         id="form"
       >
-        <select onChange={handleChapterChange} value={selectedChapter.title}>
+        <select
+          onChange={handleChapterChange}
+          value={selectedChapter.title}
+        >
           {chaptersList.map(({ id, title }) => (
             <option key={id}>{title}</option>
           ))}
@@ -73,13 +87,32 @@ export const AddChaptersText = () => {
           <ReactQuill
             theme="snow"
             value={text}
-            onChange={setText}
+            onChange={handleChange}
             className="h-2/3 w-4/6"
+           
             modules={{
+              toolbar: [
+                [{ header: [1, 2, false] }],
+                ["bold", "italic", "underline", "strike"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["blockquote", "code-block"],
+                [{ indent: "-1" }, { indent: "+1" }],
+                [{ align: [] }],
+                ["link", "image"],
+                ["clean"],
+              ],
               clipboard: {
                 matchVisual: false,
               },
             }}
+            formats={[
+              "header",
+              "bold", "italic", "underline", "strike",
+              "list", "bullet",
+              "blockquote", "code-block",
+              "indent", "align",
+              "link", "image"
+            ]}
           />
         )}
       </form>
@@ -94,6 +127,6 @@ export const AddChaptersText = () => {
         onClose={handleClose}
         message="Зміни збережено"
       />
-    </>
+    </div>
   );
 };

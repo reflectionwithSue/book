@@ -14,25 +14,13 @@ const Chapter1: FC = () => {
   useEffect(() => {
     const load = async () => {
       const response = await getText(1);
-      console.log(response);
-      
       setContent(response.text);
       setTitle(response.title);
-      setTimeout(() => {
-        setIsLoading(false);
-
-      }, 1000)
+      setIsLoading(false);
     };
+
     load();
   }, []);
-
-  /* const changeFontSize = (newSize: string) => {
-    const paragraphs = contentRef.current.querySelectorAll("p");
-
-    paragraphs.forEach((paragraph) => {
-      paragraph.style.fontSize = newSize;
-    });
-  }; */
 
   return (
     <>
@@ -42,20 +30,20 @@ const Chapter1: FC = () => {
         </div>
       ) : (
         <LayoutTemplate title={title}>
-          <div ref={contentRef}>
+          <div ref={contentRef} className="flex justify-center h-full">
             <ReactQuill
+              className="quill-custom"
               theme="bubble"
               value={content}
               readOnly={true}
               style={{
                 width: "100%",
-                height: "80%",
+                height: "100%",
               }}
               modules={{
                 clipboard: {
                   matchVisual: false,
                 },
-                
               }}
             />
           </div>

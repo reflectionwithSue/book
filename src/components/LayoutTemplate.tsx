@@ -22,14 +22,13 @@ export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
   return (
     <div className="layout overflow-y-hidden">
       <section className="flex flex-col justify-center items-center gap-2 p-3 h-full ">
-        
-    <HeaderLayoutTemplate />
-        <main className="h-[70vh] flex flex-col justify-between items-center gap-3 m-0 w-full">
-          <h2 className="text-2xl h-[5vh]  flex justify-center items-center">
+        <HeaderLayoutTemplate />
+        <main className="h-[65vh] flex flex-col justify-between items-center gap-2 m-0 w-full">
+          <h2 className="text-2xl h-[5vh] w-full flex justify-center items-center">
             {title}
           </h2>
           <div className="flex flex-col w-full">
-            <article className="flex justify-center h-[70vh]">
+            <article className="flex justify-center h-[60vh]">
               {children}
             </article>
           </div>
@@ -37,8 +36,8 @@ export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
 
         {!isLargeDisplay && (
           <footer className=" sm:h-[8vh]">
-          <BgSvg />
-        </footer>
+            <BgSvg />
+          </footer>
         )}
       </section>
     </div>

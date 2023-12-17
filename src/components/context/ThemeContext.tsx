@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react'
+import React, { FC, useEffect, useMemo, useState } from "react";
 
 type Theme = {
   theme: string;
@@ -6,25 +6,34 @@ type Theme = {
 };
 
 export const ThemeContext = React.createContext<Theme>({
-  theme: '',
+  theme: "",
   setTheme: () => {},
 });
 
 type ThemeContextProviderProps = {
   children: React.ReactNode;
-}
+};
 
-export const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+export const ThemeContextProvider: FC<ThemeContextProviderProps> = ({
+  children,
+}) => {
+  const [theme, setTheme] = useState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+  );
 
-  const contextObj = useMemo(() => ({
-    theme, setTheme,
-  }), [theme, setTheme]);
+  const contextObj = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme, setTheme]
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, []);
 
   return (
-    <ThemeContext.Provider value={contextObj}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={contextObj}>{children}</ThemeContext.Provider>
   );
-}
-
+};

@@ -6,7 +6,6 @@
 @import "@/assets/styles/loaderStyle.scss";
 @import "@/assets/styles/svgAnimationStyles.scss";
 
-
 html {
   position: relative;
   font-family: Helvetica, sans-serif;
@@ -20,6 +19,104 @@ body {
 
 #root {
   height: 100vh;
+}
+
+[data-theme="light"] {
+  .layout {
+    background-color: $background-light;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $background-dark;
+  }
+
+  p,
+  a,
+  p > span {
+    color: $background-dark !important;
+  }
+
+  .insta-logo {
+    color: $background-dark;
+  }
+
+  .st01, .st21, .st31, .path-name, .path-circle, .path-role, .path-name--slow, .path-name--slow-more, .path-role--slow, .path-role--slow-more {
+    stroke: $background-dark;
+  }
+
+  .st10, .st0 {
+    fill: $background-dark;
+  }
+
+  .cactus-list-item {
+    &::before {
+      content: url("../../../public/mark-list.svg");
+    }
+  }
+
+  .newtons-cradle {
+    --uib-color: #432816;
+  }
+
+  .custom-speed-dial-action {
+    &:hover {
+      background-color: #4328161c!important;
+    }
+  }
+
+}
+
+[data-theme="dark"] {
+  .layout {
+    background-color: $background-dark;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $background-light;
+  }
+
+  p,
+  a,
+  p > span {
+    color: $background-light !important;
+  }
+
+  .insta-logo {
+    color: $background-light;
+  }
+
+  .st01, .st21, .st31, .path-name, .path-circle, .path-role, .path-name--slow, .path-name--slow-more, .path-role--slow, .path-role--slow-more {
+    stroke: $background-light;
+  }
+
+  .st10, .st0 {
+    fill: $background-light;
+  }
+
+  .cactus-list-item {
+    &::before {
+      content: url("../../../public/mark-list-night.svg");
+    }
+  }
+
+  .newtons-cradle {
+    --uib-color: #ede5d0;
+  }
+  .custom-speed-dial-action {
+    &:hover {
+      background-color: #ede5d015 !important;
+    }
+  }
 }
 
 .layout {
@@ -43,7 +140,7 @@ body {
   padding: 25px;
   margin: 0 auto;
   box-sizing: border-box;
- 
+
   @media (min-width: 640px) {
     padding: 30px;
   }
@@ -69,49 +166,18 @@ p,
 a,
 p > span {
   font-weight: 300;
-/*   font-size: 18px;
- */  color: $background-dark !important;
+  font-size: 16px;
+  color: $background-dark !important;
   line-height: 1.625;
 
   @media (prefers-color-scheme: dark) {
     color: $background-light !important;
   }
-/*   @media (min-width: 640px) {
-    font-size: 20px;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 22px;
-  }
-
-  @media (min-width: 1280px) {
-    font-size: 24px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 26px;
-  } */
 }
-
-/* ul > li {
-  list-style-type: "-";
-} */
 
 svg,
 img {
   max-width: 100%;
-}
-
-.layout-footer {
-  background-image: url("../../../public/day.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  @media (prefers-color-scheme: dark) {
-    background-image: url("../../../public/night.svg");
-  }
 }
 
 .author {

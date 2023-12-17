@@ -172,7 +172,7 @@ l-2.9-5.3c-0.6-1.1-0.9-1.9-1.4-2.8l0,0c-0.1,1-0.2,1.9-0.4,3.1l-1.2,6L150.3,9.6z"
       />
     </g>
     <polygon
-      className="st0 star"
+      className=" star"
       points="454.1,67 472.2,54.5 449.4,61.1 450.8,43.2 443,60.2 430.1,48.8 438.3,65.7 423,70.3 441.3,72.9 
 442.7,88.2 446.6,74.8 461.8,82.6"
     />
@@ -391,7 +391,7 @@ export const svgContentGalya: ReactElement = (
       />
     </g>
     <polygon
-      className="st0 star star--slow"
+      className=" star star--slow"
       points="455.1,65.3 473.1,52.8 450.3,59.4 451.7,41.6 443.9,58.6 431,47.1 439.2,64.1 423.9,68.7 442.2,71.3 
     443.6,86.6 447.5,73.2 462.8,81 		"
     />
@@ -629,7 +629,7 @@ export const svgContentOlya: ReactElement = (
       />
     </g>
     <polygon
-      className="st0 star star--slow-more"
+      className=" star star--slow-more"
       points="454,67.8 472.1,55.3 449.3,61.9 450.7,44.1 442.8,61.1 429.9,49.6 438.1,66.6 422.9,71.2 441.2,73.8 
     442.6,89 446.5,75.7 461.7,83.5 		"
     />
