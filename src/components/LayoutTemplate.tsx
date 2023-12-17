@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useContext, useRef } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import { ReactNode } from "react";
 import { BgSvg } from "./chapters/BgSvg";
 import "@/assets/styles/LayoutTemplate.scss";
@@ -12,39 +12,40 @@ type LayoutsProps = {
 
 export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
   const { dispSize } = useContext(DisplaySizeContext);
-  const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 1024);
-
+  const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 900);
+  
   useEffect(() => {
-    setIsLargeDisplay(dispSize > 1024);
+    setIsLargeDisplay(dispSize > 900);
   }, [dispSize]);
-
-  /* const changeFontSize = (newSize: string) => {
-    const paragraphs = contentRef.current.querySelectorAll("p");
-
-    paragraphs.forEach((paragraph) => {
-      paragraph.style.fontSize = newSize;
-    });
-  }; */
 
   return (
     <div className="layout overflow-y-hidden">
       <section className="flex flex-col justify-center items-center gap-2 p-3 h-full ">
         <HeaderLayoutTemplate />
-        <main className="h-[65vh] flex flex-col justify-between items-center gap-2 m-0 w-full">
-          <h2 className="text-2xl h-[5vh] w-full flex justify-center items-center">
-            {title}
-          </h2>
-          <div className="flex flex-col w-full">
-            <article className="flex justify-center h-[60vh]">
-              {children}
-            </article>
-          </div>
-        </main>
-
-        {!isLargeDisplay && (
-          <footer className=" sm:h-[8vh]">
-            <BgSvg />
-          </footer>
+        {!isLargeDisplay ? (
+          <>
+            <main className="h-[65vh] flex flex-col justify-between items-center gap-2 m-0 w-full">
+              <h2 className="text-2xl h-[5vh] w-full flex justify-center items-center">
+                {title}
+              </h2>
+              <div className="flex flex-col w-full">
+                <article className="flex justify-center h-[60vh]">
+                  {children}
+                </article>
+              </div>
+            </main>
+            <footer className=" sm:h-[8vh]">
+              <BgSvg className="absolute -inset-x-5 bottom-0" />
+            </footer>
+          </>
+        ) : (
+          <main className="h-[80vh] flex justify-between items-center gap-2 m-0 w-full p-6">
+            <h2 className="text-[3rem] h-full w-1/2 flex justify-center mt-9 text-center">
+              {title}
+            </h2>
+            <article className="flex h-full w-1/2">{children}</article>
+            <BgSvg className="h-[40vh] w-[50vw] fixed bottom-0 left-0" />
+          </main>
         )}
       </section>
     </div>

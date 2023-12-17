@@ -1,14 +1,13 @@
 import { FiSettings } from "react-icons/fi";
 import IconButton from "@mui/material/IconButton";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { ThemeContext } from "@/components/context/ThemeContext";
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import TextIncreaseIcon from "@mui/icons-material/TextIncrease";
 import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
 import "@/assets/styles/LayoutTemplate.scss";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export const HeaderLayoutTemplate = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -16,7 +15,8 @@ export const HeaderLayoutTemplate = () => {
 
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(theme === "dark");
   const [open, setOpen] = useState<boolean>(false);
-
+  const menuRef = useRef(null);
+  
   useEffect(() => {
     setIsDarkTheme(theme === "dark");
   }, [theme, fontSize]);
@@ -80,21 +80,29 @@ export const HeaderLayoutTemplate = () => {
   ];
 
   return (
-    <header className="flex justify-end h-[5vh] w-full">
-      <SpeedDial
-        ariaLabel="toolsBar"
-        direction="left"
-        open={open}
-      >
-        {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            onClick={action.click}
-            className="custom-speed-dial-action"
-          />
-        ))}
-      </SpeedDial>
+    <header className="flex justify-end items-center h-[5vh] w-full gap-5">
+      <TransitionGroup>
+        {open && (
+          <CSSTransition
+            key="menu"
+            timeout={300}
+            classNames="menu"
+            appear
+            nodeRef={menuRef}
+          >
+            <div ref={menuRef} className="flex justify-between items-center gap-5 w-full">
+              {actions.map((action) => (
+                <IconButton
+                  key={action.name}
+                  onClick={action.click}
+                >
+                  {action.icon}
+                </IconButton>
+              ))}
+            </div>
+          </CSSTransition>
+        )}
+      </TransitionGroup>
       <IconButton
         style={{
           color: isDarkTheme ? "#ede5d0" : "#432816",

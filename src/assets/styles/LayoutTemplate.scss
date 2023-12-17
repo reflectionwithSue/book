@@ -37,12 +37,20 @@
   margin-bottom: 10px;
 }
 
-.css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
-  background-color: transparent !important;
-  box-shadow: none !important;
+.menu-enter {
+  opacity: 0.01;
 }
 
-.custom-speed-dial-action {
-  background-color: transparent !important;
-  box-shadow: none !important;
+.menu-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.menu-exit {
+  opacity: 1;
+}
+
+.menu-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }

@@ -1,7 +1,10 @@
+import { ClassNames } from "@emotion/react";
 import anime from "animejs/lib/anime.es.js";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
-export const BgSvg = () => {
+type BgSvgProps = { className: string };
+
+export const BgSvg: FC<BgSvgProps> = ({ className }) => {
   useEffect(() => {
     const wave1 =
       "m371.7,185.2l-69.3,0c-92.1,-29 -239.6,-83.9 -303.4,-108.8l0,-77c49.6,4 27.9,25.9 68.5,39.8c40.6,13.9 42,39.7 70.8,38c28.8,-1.7 83.1,-10.5 97.8,11.5c14.7,22 64.3,22.92 75,19.82c10.7,-3.1 23.72,-2.95 27.4,-0.92c3.68,2.03 4.1,2.5 5.8,4.5l2,2c6.7,8 11.7,20.8 16.7,38c3,10.6 3.3,22.4 8.7,33.1z";
@@ -43,7 +46,7 @@ export const BgSvg = () => {
       y="0px"
       viewBox="0 0 414.1 185.7"
       xmlSpace="preserve"
-      className="absolute -inset-x-5 bottom-0"
+      className={className}
     >
       <g
         id="Layer_2_00000152955248338110715740000002258627737009947808_"
