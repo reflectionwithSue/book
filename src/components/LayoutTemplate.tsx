@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect, useContext, useRef } from "react";
 import { ReactNode } from "react";
 import { BgSvg } from "./chapters/BgSvg";
 import "@/assets/styles/LayoutTemplate.scss";
@@ -12,12 +12,19 @@ type LayoutsProps = {
 
 export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
   const { dispSize } = useContext(DisplaySizeContext);
-
   const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 1024);
 
   useEffect(() => {
     setIsLargeDisplay(dispSize > 1024);
   }, [dispSize]);
+
+  /* const changeFontSize = (newSize: string) => {
+    const paragraphs = contentRef.current.querySelectorAll("p");
+
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.fontSize = newSize;
+    });
+  }; */
 
   return (
     <div className="layout overflow-y-hidden">

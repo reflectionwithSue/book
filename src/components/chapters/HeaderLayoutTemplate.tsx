@@ -12,13 +12,21 @@ import "@/assets/styles/LayoutTemplate.scss";
 
 export const HeaderLayoutTemplate = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const [fontSize, setFontSize] = useState<number>(16);
 
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(theme === "dark");
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setIsDarkTheme(theme === "dark");
-  }, [theme]);
+  }, [theme, fontSize]);
+
+  useEffect(() => {
+    const paragraphs = document.querySelectorAll(".ql-editor p");
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.fontSize = `${fontSize}px`;
+    });
+  }, [fontSize]);
 
   const actions = [
     {
@@ -30,6 +38,9 @@ export const HeaderLayoutTemplate = () => {
         />
       ),
       name: "TextDecrease",
+      click: () => {
+        setFontSize((prevFontSize) => prevFontSize - 1);
+      },
     },
     {
       icon: (
@@ -40,6 +51,9 @@ export const HeaderLayoutTemplate = () => {
         />
       ),
       name: "TextIncrease",
+      click: () => {
+        setFontSize((prevFontSize) => prevFontSize + 1);
+      },
     },
     {
       icon: isDarkTheme ? (
@@ -64,14 +78,6 @@ export const HeaderLayoutTemplate = () => {
       },
     },
   ];
-
-  /* const changeFontSize = (newSize: string) => {
-    const paragraphs = contentRef.current.querySelectorAll("p");
-
-    paragraphs.forEach((paragraph) => {
-      paragraph.style.fontSize = newSize;
-    });
-  }; */
 
   return (
     <header className="flex justify-end h-[5vh] w-full">

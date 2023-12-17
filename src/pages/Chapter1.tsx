@@ -1,5 +1,5 @@
 import { LayoutTemplate } from "@/components/LayoutTemplate";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { getText } from "@/api/text";
 import ReactQuill from "react-quill";
 import "quill/dist/quill.bubble.css";
@@ -9,7 +9,6 @@ const Chapter1: FC = () => {
   const [content, setContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [title, setTitle] = useState<string>("");
-  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -30,7 +29,7 @@ const Chapter1: FC = () => {
         </div>
       ) : (
         <LayoutTemplate title={title}>
-          <div ref={contentRef} className="flex justify-center h-full">
+          <div className="flex justify-center h-full">
             <ReactQuill
               className="quill-custom"
               theme="bubble"
@@ -45,6 +44,7 @@ const Chapter1: FC = () => {
                   matchVisual: false,
                 },
               }}
+              
             />
           </div>
         </LayoutTemplate>
