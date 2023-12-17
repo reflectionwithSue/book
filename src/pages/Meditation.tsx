@@ -18,6 +18,7 @@ export default function Meditation() {
   const audioPlayer = audioPlayerRef.current;
 
   useEffect(() => {
+    document.getElementById('status-bar-style').setAttribute('content', 'black');
     const fetchUri = async () => {
       try {
         const downloadURL = await getDownloadURL(videoRef);
