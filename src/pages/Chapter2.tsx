@@ -1,5 +1,5 @@
 import { LayoutTemplate } from "@/components/LayoutTemplate";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getText } from "@/api/text";
 import ReactQuill from "react-quill";
 import "quill/dist/quill.bubble.css";
@@ -9,18 +9,15 @@ export default function Chapter2() {
   const [content, setContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [title, setTitle] = useState<string>("");
-  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const load = async () => {
       const response = await getText(2);
       setContent(response.text);
       setTitle(response.title);
-      setTimeout(() => {
-        setIsLoading(false);
-
-      }, 1000)
+      setIsLoading(false);
     };
+
     load();
   }, []);
 
@@ -32,21 +29,22 @@ export default function Chapter2() {
         </div>
       ) : (
         <LayoutTemplate title={title}>
-          <div ref={contentRef} className="flex justify-center h-full">
+          <div className="flex justify-center h-full">
             <ReactQuill
+              className="quill-custom"
               theme="bubble"
               value={content}
               readOnly={true}
               style={{
                 width: "100%",
-                height: "80%",
-                border: "1px solid black",
+                height: "100%",
               }}
               modules={{
                 clipboard: {
                   matchVisual: false,
                 },
               }}
+              
             />
           </div>
         </LayoutTemplate>

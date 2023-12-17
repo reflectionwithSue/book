@@ -33,9 +33,7 @@ export const AddChaptersText = () => {
     setOpen(false);
   };
 
-  const handleChapterChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChapterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTitle = event.target.value;
     const chapter = chaptersList.find((item) => item.title === selectedTitle);
 
@@ -43,6 +41,7 @@ export const AddChaptersText = () => {
       setSelectedChapter(chapter);
     }
   };
+  
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
@@ -63,64 +62,75 @@ export const AddChaptersText = () => {
     load();
   }, [selectedChapter]);
 
-  const handleChange = (content: string, _delta: any, _source: any, editor: any) => {
+  const handleChange = (
+    content: string,
+    _delta: any,
+    _source: any,
+    editor: any
+  ) => {
     setText(editor.getHTML());
   };
 
   return (
-    <div className="layout">
+    <div className="layout flex justify-center items-center">
       <form
         className="flex flex-col items-center gap-3 h-5/6"
         onSubmit={submitForm}
         id="form"
       >
-        <select
-          onChange={handleChapterChange}
-          value={selectedChapter.title}
-        >
+        <select onChange={handleChapterChange} value={selectedChapter.title}>
           {chaptersList.map(({ id, title }) => (
             <option key={id}>{title}</option>
           ))}
         </select>
 
         {selectedChapter.id !== 0 && (
-          <ReactQuill
-            theme="snow"
-            value={text}
-            onChange={handleChange}
-            className="h-2/3 w-4/6"
-           
-            modules={{
-              toolbar: [
-                [{ header: [1, 2, false] }],
-                ["bold", "italic", "underline", "strike"],
-                [{ list: "ordered" }, { list: "bullet" }],
-                ["blockquote", "code-block"],
-                [{ indent: "-1" }, { indent: "+1" }],
-                [{ align: [] }],
-                ["link", "image"],
-                ["clean"],
-              ],
-              clipboard: {
-                matchVisual: false,
-              },
-            }}
-            formats={[
-              "header",
-              "bold", "italic", "underline", "strike",
-              "list", "bullet",
-              "blockquote", "code-block",
-              "indent", "align",
-              "link", "image"
-            ]}
-          />
+          <div className="w-full h-[60vh] flex justify-center items-center">
+            <ReactQuill
+              theme="snow"
+              value={text}
+              onChange={handleChange}
+              className="h-2/3 w-4/6"
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, false] }],
+                  ["bold", "italic", "underline", "strike"],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  ["blockquote", "code-block"],
+                  [{ indent: "-1" }, { indent: "+1" }],
+                  [{ align: [] }],
+                  ["link", "image"],
+                  ["clean"],
+                ],
+                clipboard: {
+                  matchVisual: false,
+                },
+              }}
+              formats={[
+                "header",
+                "bold",
+                "italic",
+                "underline",
+                "strike",
+                "list",
+                "bullet",
+                "blockquote",
+                "code-block",
+                "indent",
+                "align",
+                "link",
+                "image",
+              ]}
+            />
+          </div>
+        )}
+        {selectedChapter.id !== 0 && (
+          <button type="submit" form="form">
+            Зберегти текст
+          </button>
         )}
       </form>
-      {selectedChapter.id !== 0 && (
-        <button type="submit" form="form">
-          Зберегти текст
-        </button>
-      )}
+
       <Snackbar
         open={open}
         autoHideDuration={6000}

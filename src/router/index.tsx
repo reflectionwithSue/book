@@ -11,14 +11,14 @@ import {AddChaptersText} from "@/pages/AddChaptersText";
 import { Cactus } from "@/pages/Cactus";
 
 export const router = createHashRouter([
-  {
+/*   {
     path: "/",
     loader: () => redirect("/catalog"),
-  },
-  {
+  }, */
+/*   {
     path: "/catalog",
     element: <Catalog />,
-  },
+  }, */
   {
     path: "/pobichnyy-efekt-uspihu",
     errorElement: <ErrorPage />,
@@ -49,14 +49,18 @@ export const router = createHashRouter([
     errorElement: <ErrorPage />,
     element: <AboutAuthors />,
   },
-  {
+/*   {
     path: "/add-text",
     errorElement: <ErrorPage />,
     element: <AddChaptersText />,
-  },
+  }, */
   {
     path: "/klyuch-do-tekhniki-kaktus",
     errorElement: <ErrorPage />,
     element: <Cactus />,
-  }
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);

@@ -1,4 +1,3 @@
-import { ClassNames } from "@emotion/react";
 import anime from "animejs/lib/anime.es.js";
 import { FC, useEffect } from "react";
 
@@ -27,14 +26,12 @@ export const BgSvg: FC<BgSvgProps> = ({ className }) => {
       scale: [1, 1.09],
       duration: 5000,
       easing: "linear",
-      direction: 'alternate',
+      direction: "alternate",
       loop: true,
-      delay: function(el, i, l) {
+      delay: function (el, i, l) {
         return i * 3000;
-      }
+      },
     });
-
-    
   }, []);
   return (
     <svg

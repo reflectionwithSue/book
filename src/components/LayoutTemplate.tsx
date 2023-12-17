@@ -12,10 +12,10 @@ type LayoutsProps = {
 
 export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
   const { dispSize } = useContext(DisplaySizeContext);
-  const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 900);
-  
+  const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 913);
+
   useEffect(() => {
-    setIsLargeDisplay(dispSize > 900);
+    setIsLargeDisplay(dispSize > 913);
   }, [dispSize]);
 
   return (
@@ -39,12 +39,14 @@ export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
             </footer>
           </>
         ) : (
-          <main className="h-[80vh] flex justify-between items-center gap-2 m-0 w-full p-6">
-            <h2 className="text-[3rem] h-full w-1/2 flex justify-center mt-9 text-center">
-              {title}
-            </h2>
-            <article className="flex h-full w-1/2">{children}</article>
-            <BgSvg className="h-[40vh] w-[50vw] fixed bottom-0 left-0" />
+          <main className="h-[80vh] flex justify-between items-center gap-10 m-0 w-11/12 p-4">
+            <div className="h-full w-1/2 flex mt-9 justify-center">
+              <h2 className="text-[3rem] text-center w-2/3">{title}</h2>
+            </div>
+            <article className="flex items-center h-[80vh] w-1/2 mt-8">
+              {children}
+            </article>
+            <BgSvg className="h-[38vh] w-[48vw] fixed bottom-0 left-0" />
           </main>
         )}
       </section>
