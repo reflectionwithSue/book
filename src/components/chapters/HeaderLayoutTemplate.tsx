@@ -83,20 +83,6 @@ export const HeaderLayoutTemplate = () => {
     <header className="flex justify-end h-[5vh] w-full">
       <SpeedDial
         ariaLabel="toolsBar"
-        sx={{ display: "flex", justifyContent: "flex-end" }}
-        icon={
-          <IconButton
-            style={{
-              color: isDarkTheme ? "#ede5d0" : "#432816",
-            }}
-            sx={{
-              backgroundColor: "transparent",
-            }}
-            onClick={() => setOpen(!open)}
-          >
-            <FiSettings />
-          </IconButton>
-        }
         direction="left"
         open={open}
       >
@@ -109,6 +95,18 @@ export const HeaderLayoutTemplate = () => {
           />
         ))}
       </SpeedDial>
+      <IconButton
+        style={{
+          color: isDarkTheme ? "#ede5d0" : "#432816",
+        }}
+        sx={{
+          display: "flex", justifyContent: "flex-end",
+          backgroundColor: "transparent",
+        }}
+        onClick={() => setOpen(!open)}
+      >
+        <FiSettings />
+      </IconButton>
     </header>
   );
 };
