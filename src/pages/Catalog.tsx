@@ -24,26 +24,26 @@ export const Catalog: FC = () => {
       path: "/vdykh-vidykh-rivnovaha",
     },
     {
-      title:  "Інформація про авторів",
+      title: "Інформація про авторів",
       path: "/about-authors",
     },
     {
-      title:"Ключ до техніки «Кактус»",
+      title: "Ключ до техніки «Кактус»",
       path: "/klyuch-do-tekhniki-kaktus",
     },
   ];
   return (
-    <section className="layout h-full">
-      <div className="container flex flex-col justify-center items-center h-3/4">
-      <h1 className="mb-5">Перелік веб-глав</h1>
-      <ol className="list-decimal list-outside flex flex-col">
-        {chaptersList.map((chapter) => (
-          <Link key={chapter.title} to={chapter.path}>
-            <li>{chapter.title}</li>
-          </Link>
-        ))}
-      </ol>
+    <section className="layout h-full flex flex-col justify-center items-center">
+      <div className="container flex flex-col justify-center items-center h-3/4 w-2/3">
+        <h1 className="mb-5 text-xl  md:text-3xl">Перелік веб-глав</h1>
+        <ol className="list-decimal list-outside flex flex-col">
+          {chaptersList.map((chapter) => (
+            <Link key={chapter.title} to={chapter.path} className="mb-1 md:text-xl md:mb-2">
+              <li>{chapter.title}</li>
+            </Link>
+          ))}
+        </ol>
       </div>
     </section>
   );
-}
+};

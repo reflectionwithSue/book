@@ -11,14 +11,14 @@ import {AddChaptersText} from "@/pages/AddChaptersText";
 import { Cactus } from "@/pages/Cactus";
 
 export const router = createHashRouter([
-/*   {
+  {
     path: "/",
     loader: () => redirect("/catalog"),
-  }, */
-/*   {
+  },
+  {
     path: "/catalog",
     element: <Catalog />,
-  }, */
+  },
   {
     path: "/pobichnyy-efekt-uspihu",
     errorElement: <ErrorPage />,
