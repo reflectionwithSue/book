@@ -74,8 +74,8 @@ export const HeaderLayoutTemplate = () => {
         const newTheme = theme === "light" ? "dark" : "light";
         setTheme(newTheme);
         document.documentElement.setAttribute("data-theme", newTheme);
-        document.getElementById("theme-color")?.setAttribute("content", newTheme === "dark" ? "#432816" : "#ede5d0");
-        setOpen(false);
+/*         document.getElementById("theme-color")?.setAttribute("content", newTheme === "dark" ? "#432816" : "#ede5d0");
+ */        setOpen(false);
       },
     },
   ];
