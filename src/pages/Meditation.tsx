@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import "@/assets/styles/Meditation.scss";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import { TextInfo } from "@/components/meditation/TextInfo";
 import { PlayerControls } from "@/components/meditation/PlayerControls";
 import meditation from "../../public/meditation.mp3";
+import { ThemeContext } from "@/components/context/ThemeContext";
 
 export default function Meditation() {
   const [videoUrl, setVideoUrl] = useState<string>("");
@@ -13,12 +14,12 @@ export default function Meditation() {
   const videoRef = ref(storage, "bg-video.mp4");
   const bgVideoRef = useRef<HTMLVideoElement>(null);
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
+  const { theme } = useContext(ThemeContext);
 
   const bgVideo = bgVideoRef.current;
   const audioPlayer = audioPlayerRef.current;
 
   useEffect(() => {
-    document.getElementById('status-bar-style').setAttribute('content', 'black');
     const fetchUri = async () => {
       try {
         const downloadURL = await getDownloadURL(videoRef);
@@ -29,6 +30,13 @@ export default function Meditation() {
     };
 
     fetchUri();
+  }, []);
+
+  useEffect(() => {
+    document.getElementById("theme-color")?.setAttribute("content", 'transparent');
+    return (() => {
+      document.getElementById("theme-color")?.setAttribute("content", theme === "dark" ? "#432816" : "#ede5d0");
+    })
   }, []);
 
   return (

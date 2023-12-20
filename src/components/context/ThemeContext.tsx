@@ -31,12 +31,13 @@ export const ThemeContextProvider: FC<ThemeContextProviderProps> = ({
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-/*     const themeColor = document.getElementById("theme-color");
- *//*     if (theme === "dark") {
+    const themeColor = document.getElementById("theme-color");
+    
+    if (theme === "dark") {
       themeColor?.setAttribute("content", "#432816");
     } else {
       themeColor?.setAttribute("content", "#ede5d0");
-    } */
+    }
   }, []);
 
   return (
