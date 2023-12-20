@@ -4,7 +4,6 @@ import { BgSvg } from "./chapters/BgSvg";
 import "@/assets/styles/LayoutTemplate.scss";
 import { HeaderLayoutTemplate } from "./chapters/HeaderLayoutTemplate";
 import { DisplaySizeContext } from "@/components/context/DisplaySizeContext";
-import { ThemeContext } from "@/components/context/ThemeContext";
 
 type LayoutsProps = {
   title: string;
@@ -14,11 +13,6 @@ type LayoutsProps = {
 export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
   const { dispSize } = useContext(DisplaySizeContext);
   const [isLargeDisplay, setIsLargeDisplay] = useState(dispSize > 913);
-  const { theme } = useContext(ThemeContext);
-
-  useEffect(()=> {
-    document.getElementById('status-bar-style').setAttribute('content', theme === "dark" ? "#ede5d0" : "#432816");
-  }, []);
 
   useEffect(() => {
     setIsLargeDisplay(dispSize > 913);
