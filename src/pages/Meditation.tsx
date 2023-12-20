@@ -33,7 +33,7 @@ export default function Meditation() {
   }, []);
 
   useEffect(() => {
-    document.getElementById("theme-color")?.setAttribute("content", 'transparent');
+    document.getElementById("theme-color")?.setAttribute("content", 'black');
     return (() => {
       document.getElementById("theme-color")?.setAttribute("content", theme === "dark" ? "#432816" : "#ede5d0");
     })
