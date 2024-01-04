@@ -22,7 +22,9 @@ export const HeaderLayoutTemplate = () => {
   }, [theme, fontSize]);
 
   useEffect(() => {
-    const paragraphs = document.querySelectorAll(".ql-editor p");
+    const paragraphs = document.querySelectorAll(".ch-text");
+    console.log('paragraphs', paragraphs);
+    
     paragraphs.forEach((paragraph) => {
       paragraph.style.fontSize = `${fontSize}px`;
     });

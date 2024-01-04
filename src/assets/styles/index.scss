@@ -45,11 +45,21 @@ body {
     color: $background-dark;
   }
 
-  .st01, .st21, .st31, .path-name, .path-circle, .path-role, .path-name--slow, .path-name--slow-more, .path-role--slow, .path-role--slow-more {
+  .st01,
+  .st21,
+  .st31,
+  .path-name,
+  .path-circle,
+  .path-role,
+  .path-name--slow,
+  .path-name--slow-more,
+  .path-role--slow,
+  .path-role--slow-more {
     stroke: $background-dark;
   }
 
-  .st10, .st0 {
+  .st10,
+  .st0 {
     fill: $background-dark;
   }
 
@@ -65,14 +75,13 @@ body {
 
   .custom-speed-dial-action {
     &:hover {
-      background-color: #4328161c!important;
+      background-color: #4328161c !important;
     }
   }
 
-  .error-svg  path {
+  .error-svg path {
     fill: $background-dark;
   }
-
 }
 
 [data-theme="dark"] {
@@ -99,11 +108,21 @@ body {
     color: $background-light;
   }
 
-  .st01, .st21, .st31, .path-name, .path-circle, .path-role, .path-name--slow, .path-name--slow-more, .path-role--slow, .path-role--slow-more {
+  .st01,
+  .st21,
+  .st31,
+  .path-name,
+  .path-circle,
+  .path-role,
+  .path-name--slow,
+  .path-name--slow-more,
+  .path-role--slow,
+  .path-role--slow-more {
     stroke: $background-light;
   }
 
-  .st10, .st0 {
+  .st10,
+  .st0 {
     fill: $background-light;
   }
 
@@ -272,4 +291,3 @@ img {
     color: $background-light;
   }
 }
-

@@ -46,7 +46,7 @@ export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
             <article className="flex items-center h-[80vh] w-1/2 mt-8">
               {children}
             </article>
-            <BgSvg className="h-[38vh] w-[50vw] fixed bottom-0 left-0" />
+            <BgSvg className="h-[38vh] w-[48vw] fixed bottom-0 left-0" />
           </main>
         )}
       </section>

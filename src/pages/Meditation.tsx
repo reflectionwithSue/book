@@ -33,10 +33,12 @@ export default function Meditation() {
   }, []);
 
   useEffect(() => {
-    document.getElementById("theme-color")?.setAttribute("content", 'black');
-    return (() => {
-      document.getElementById("theme-color")?.setAttribute("content", theme === "dark" ? "#432816" : "#ede5d0");
-    })
+    document.getElementById("theme-color")?.setAttribute("content", "black");
+    return () => {
+      document
+        .getElementById("theme-color")
+        ?.setAttribute("content", theme === "dark" ? "#432816" : "#ede5d0");
+    };
   }, []);
 
   return (
@@ -63,9 +65,9 @@ export default function Meditation() {
           />
         </div>
       </section>
-      <audio ref={audioPlayerRef} >
-          <source src={meditation} />
-        </audio>
+      <audio ref={audioPlayerRef}>
+        <source src={meditation} />
+      </audio>
     </div>
   );
 }
