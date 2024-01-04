@@ -23,7 +23,6 @@ export const HeaderLayoutTemplate = () => {
 
   useEffect(() => {
     const paragraphs = document.querySelectorAll(".ch-text");
-    console.log('paragraphs', paragraphs);
     
     paragraphs.forEach((paragraph) => {
       paragraph.style.fontSize = `${fontSize}px`;

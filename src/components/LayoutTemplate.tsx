@@ -25,7 +25,7 @@ export const LayoutTemplate: FC<LayoutsProps> = ({ title, children }) => {
         {!isLargeDisplay ? (
           <>
             <main className="h-[65vh] flex flex-col justify-between items-center gap-2 m-0 w-full">
-              <h2 className="text-2xl h-[5vh] w-full flex justify-center items-center">
+              <h2 className="text-xl h-[5vh] w-full flex justify-center items-center">
                 {title}
               </h2>
               <div className="flex flex-col w-full">

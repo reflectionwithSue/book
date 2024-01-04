@@ -1,54 +1,145 @@
 import { LayoutTemplate } from "@/components/LayoutTemplate";
-import { useEffect, useState } from "react";
-import { getText } from "@/api/text";
-import ReactQuill from "react-quill";
-import "quill/dist/quill.bubble.css";
-import { Loader } from "@/components/Loader";
+import { FC } from "react";
 
-export default function Chapter2() {
-  const [content, setContent] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [title, setTitle] = useState<string>("");
-
-  useEffect(() => {
-    const load = async () => {
-      const response = await getText(2);
-      setContent(response.text);
-      setTitle(response.title);
-      setIsLoading(false);
-    };
-
-    load();
-  }, []);
-
+const Chapter2: FC = () => {
   return (
-    <>
-      {isLoading ? (
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <Loader />
-        </div>
-      ) : (
-        <LayoutTemplate title={title}>
-          <div className="flex justify-center h-full">
-            <ReactQuill
-              className="quill-custom"
-              theme="bubble"
-              value={content}
-              readOnly={true}
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              modules={{
-                clipboard: {
-                  matchVisual: false,
-                },
-              }}
-              
-            />
-          </div>
-        </LayoutTemplate>
-      )}
-    </>
+    <LayoutTemplate title="Він цілком нормальний">
+      <div className="flex justify-center h-full">
+        <article className="w-full overflow-y-auto px-4 flex flex-col content-around">
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Сью нетерпляче чекає гостей. Сьогодні їй виповнюється вісім. Серед
+            запрошених мав прийти однокласник Матвій. Сьюзі не хотіла його
+            кликати, але її мама почала спілкуватися з тіткою Ерікою (мамою
+            хлопця), тому у іменинниці вибору не було. Матвій був повнуватим,
+            порівняно з однолітками, і носив окуляри. З ним майже не
+            спілкувалися. Він завжди був якимось злим чи сумним, дівчина так і
+            не розібрала. Але одне вона відчувала точно - дружити з ним їй аж
+            ніяк не хотілося.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">Тілінь!</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Від думок її відриває дзвінок - і радісна Сьюзі біжить отримувати
+            подарунки!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Ти прикинь, - ледь не з першої секунди Еріка починає жалітися, -
+            це мале теля, - вона стукає Матвія по потилиці, - порізало чорний
+            костюм. Бо він йому не сподобався! Тому сорі - ми у спортивному.
+            Сьюзі, з днем народження, - жінка пхає дівчинці пакуночок. - Матвію,
+            чого рота роззявив, квіти даруй!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Вітаю! Це тобі, - хлопець бурмоче і невпевнено протягує букет.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Сью для чемності видавлює сухе ”дякую” і про себе відмічає, що тітка
+            Еріка занадто агресивна до свого сина.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Через кілька хвилин підтягуються й інші запрошені гості. Стіл
+            ломиться від частувань, мама Сью дуже хотіла догодити малечі, тож
+            приготувала їм багато салатиків і запечену картопельку. Всі дружно
+            наминають частування. А далі малечі дозволяють бавитися.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Граємо у “Море хвилюється раз”? - запропонував Артем.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Ага! - радісно плескає у долоньки Сью, - я веду! Море хвилюється
+            раз, море хвилюється два, море хвилюється три - морська фігура на
+            місці завмри!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Малеча застигла, зафіксувавшись у різних фігурах. Іменинниця
+            зосередилась, кожен зупинився у доволі смішній позі, вона хіхікає і
+            підходить до Артема, легко торкаючись до нього. Хлопець оживає і
+            починає трясти руками та ногами. Дівчина перебирає варіанти:
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Це медуза!</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Нєа!</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Хм, це восьминіг?</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Нєа!</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- А хто? - дещо засмучено питає Сью.</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Це чувак, якого вдарив струмом скат! А-ха-ха-ха!!!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Пфф! Це не морська фігура, - кривиться Сью, -Артеме, так не
+            чесно, за правилами ти тепер ведучий!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Хлопець радіє і починає рахувати. Малеча весело бавиться. Їхні ігри
+            змінюються одна за одною: доганялки, хованки, крокодил. І поки діти
+            насолоджуються святом, весело проводячи час, Матвій тихенько сидить
+            у куточку і читає “Що? Де? Коли?”.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Ура! Я відгадала! - кричить Катя і вибігає на імпровізовану сцену.
+            - Давай, Владе, загадуй мені щось.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            У цей момент Сью подивилася на Матвія, їй стало якось ніяково, що
+            всі граються, а він ні. Дівчина хотіла підійти до нього, запросити
+            до веселої тусовки, але хлопець був дуже надутим, тож іменинниця
+            завагалася і відкинула цю ідею, зосередившись на тому, що показує
+            подруга. Коли годинник показав 20:00 мама Сью раптом згадала, що вже
+            час накривати солодкий стіл.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            У кімнаті темно, чути таткові кроки і запах свічечок. Як тільки торт
+            з’являється на порозі всі починають співати:
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Хеппі бьоздей ту ю, хеппі бьоздей ту ю!..</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Сью заплющує очі, обираючи бажання, а потім задуває свічки. Тато
+            розрізає іменинний торт і роздає гостям.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Ні! - раптом кричить Еріка, ледь тарілка з тортом опиняється біля
+            Матвія. - Він його не заслужив, а скоро вже й у двері не пролізе!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Хтось з дітей сміється, а Сюзі від здивування ледь не давиться
+            шматком торта.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Ввечері дівчинка не могла заснути, перед очима стояв Матвій і його
+            вираз обличчя, коли всі діти наминали солодкий десерт, а він мовчки
+            спостерігав за цим процесом. Сью рішуче скинула ковдру, встала з
+            ліжка і пішла на кухню. Дістала пакувальний папірець і поклала туди
+            шматочок торта. Наступного дня, поки всі діти насолоджувалися
+            перервою, Матвій сидів за партою і читав.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Це тобі, - сказала Сьюзі і поклала пакуночок з солодким на парту
+            однокласнику.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">- Я… Емм... - хлопець засоромився.</p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Слухай, якщо об'єктивно, то ти не жирний, ну є декілька зайвих
+            кіло. Без образ! Покачаєш прес, побігаєш - і все буде добре.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            Від цих слів Матвій посміхнувся. Вперше! На лівій щоці у нього
+            навіть&nbsp;з'явилася ямочка.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Не буду з тобою сперечатися. Цілком об’єктивна думка. Дякую!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            - Будь ласка! - дівчинка полегшено видихнула. - Тоді не
+            відволікатиму. Смачного!
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto">
+            І Сью раптом зрозуміла: «Та він цілком нормальний». У той момент
+            вона ще не здогадувалася, що незабаром цей нормальний стане її
+            найкращим другом і першим коханням.
+          </p>
+          <p className="ch-text mb-2 text-justify hyphens-auto"></p>
+        </article>
+      </div>
+    </LayoutTemplate>
   );
-}
+};
+
+export default Chapter2;
