@@ -85,7 +85,7 @@ export const AddChaptersText = () => {
         </select>
 
         {selectedChapter.id !== 0 && (
-          <div className="w-full h-[60dvh] flex justify-center items-center">
+          <div className="w-full h-[60svh] flex justify-center items-center">
             <ReactQuill
               theme="snow"
               value={text}

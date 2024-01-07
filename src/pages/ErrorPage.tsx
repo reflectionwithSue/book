@@ -1,6 +1,6 @@
 export default function ErrorPage() {
   return (
-    <div className="layout w-[100vw] h-[100dvh] flex justify-center items-center">
+    <div className="layout w-[100vw] h-[100svh] flex justify-center items-center">
       <div className="w-[80vw] flex justify-center items-center">
         <svg
           viewBox="0 0 16 16"

@@ -82,7 +82,7 @@ export const HeaderLayoutTemplate = () => {
   ];
 
   return (
-    <header className="flex justify-end items-center h-[5dvh] w-full gap-5">
+    <header className="flex justify-end items-center h-[5svh] w-full gap-5">
       <TransitionGroup>
         {open && (
           <CSSTransition
