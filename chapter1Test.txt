@@ -1,0 +1,210 @@
+import { LayoutTemplate } from "@/components/LayoutTemplate";
+import { FC, useContext, useEffect, useRef, useState } from "react";
+import { getText } from "@/api/text";
+import ReactQuill from "react-quill";
+import "quill/dist/quill.bubble.css";
+import { Loader } from "@/components/Loader";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { ThemeContext } from "@/components/context/ThemeContext";
+
+const Chapter1: FC = () => {
+  const { theme } = useContext(ThemeContext);
+
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(theme === "dark");
+  const [content, setContent] = useState<string[]>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [title, setTitle] = useState<string>("");
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pages, setPages] = useState<Map<number, string[]>>(new Map());
+  const [contentHeight, setContentHeight] = useState<number>(
+    window.innerHeight * 0.7
+  );
+
+  const lineHeight = 26;
+  const rowsInContainer = Math.floor(contentHeight / lineHeight);
+  const fontSize = 16;
+  const containerWidth = window.innerWidth * 0.76;
+
+  useEffect(() => {
+    setIsDarkTheme(theme === "dark");
+  }, [theme]);
+
+  useEffect(() => {
+    setContentHeight(window.innerHeight * 0.6);
+  }, [window.innerHeight]);
+
+  const [totalCharacters, setTotalCharacters] = useState<number>(578);
+
+  useEffect(() => {
+    const load = async () => {
+      const charactersPerLine = Math.floor(containerWidth / fontSize);
+      const numberOfLines = Math.floor(contentHeight / lineHeight);
+      setTotalCharacters(numberOfLines * charactersPerLine * 2);
+
+      const response = await getText(1);
+      splitToPages(response.text);
+      setTitle(response.title);
+      setIsLoading(false);
+    };
+
+    load();
+    console.log(pages);
+
+  }, []);
+
+  function attributesToString(attributes: NamedNodeMap) {
+    const attributeArray = Array.from(attributes);
+    return attributeArray
+      .map((attribute) => `${attribute.name}="${attribute.value}"`)
+      .join(" ");
+  }
+
+  const splitParagraph = (
+    tagName: string,
+    attributes: NamedNodeMap,
+    innerHTML: string,
+    characters: number
+  ) => {
+    const words = innerHTML.split(" ");
+    let currentSubstring = "";
+    let substrings = [];
+
+    for (const word of words) {
+      if ((currentSubstring + word).length <= characters) {
+        currentSubstring += (currentSubstring === "" ? "" : " ") + word;
+      } else {
+        substrings.push(currentSubstring);
+        currentSubstring = word;
+      }
+    }
+
+    if (currentSubstring !== "") {
+      substrings.push(currentSubstring);
+    }
+    const remainingString = words.slice(substrings.length).join(" ");
+
+    const firstParagraph = `<${tagName} ${attributesToString(
+      attributes
+    )}>${substrings}</${tagName}>`;
+    const secondParagraph = `<${tagName} ${attributesToString(
+      attributes
+    )}>${remainingString}</${tagName}>`;
+    const secondPartLength = remainingString.length;
+
+    return { firstParagraph, secondParagraph, secondPartLength };
+  };
+
+  const splitToPages = async (text: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
+    let paraphCharacters = 0;
+
+    for (const child of Array.from(doc.body.children)) {
+      const innerTextLength = (child as HTMLElement).innerText.length;
+      if (paraphCharacters + innerTextLength < totalCharacters) {
+        setPages((prevPages) => {
+          const newPages = new Map(prevPages);
+          const currentPageContent = newPages.get(newPages.size) || [];
+          newPages.set(newPages.size, [
+            ...currentPageContent,
+            child.outerHTML,
+          ]);
+          return newPages;
+        });
+        paraphCharacters += innerTextLength;
+      } else {
+        if (totalCharacters - paraphCharacters >= 50) {
+          const result = splitParagraph(
+            child.tagName.toLowerCase(),
+            child.attributes,
+            child.innerHTML,
+            totalCharacters - paraphCharacters
+          );
+          const { firstParagraph, secondParagraph, secondPartLength } = result;
+          setPages((prevPages) => {
+            const newPages = new Map(prevPages);
+            const currentPageContent = newPages.get(newPages.size) || [];
+            newPages.set(newPages.size, [
+              ...currentPageContent,
+              firstParagraph,
+            ]);
+            return newPages;
+          });
+
+          setPages((prevPages) => {
+            const newPages = new Map(prevPages);
+            newPages.set(newPages.size + 1, [secondParagraph]);
+            return newPages;
+          });
+
+          paraphCharacters = 0;
+          paraphCharacters += secondPartLength;
+        } else {
+          setPages((prevPages) => {
+            const newPages = new Map(prevPages);
+            newPages.set(newPages.size + 1, [child.outerHTML]);
+            return newPages;
+          });
+          paraphCharacters = 0;
+        }
+      }
+    }
+
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  return (
+    <>
+      {isLoading ? (
+        <div className="w-full h-full flex flex-col justify-center items-center">
+          <Loader />
+        </div>
+      ) : (
+        <LayoutTemplate title={title}>
+          <div className="flex ">
+            {currentPage !== 1 && (
+              <button onClick={() => handlePageChange(currentPage - 1)}>
+                <ArrowBackIosIcon
+                  fontSize="small"
+                  sx={{ color: isDarkTheme ? "#ede5d0" : "#432816" }}
+                />
+              </button>
+            )}
+
+            <ReactQuill
+              className="quill-custom"
+              theme="bubble"
+              value={(pages.get(currentPage) || []).join("")}
+              readOnly={true}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              modules={{
+                clipboard: {
+                  matchVisual: false,
+                },
+              }}
+            />
+            {currentPage !== pages.size && (
+              <button onClick={() => handlePageChange(currentPage + 1)}>
+                <ArrowForwardIosIcon
+                  fontSize="small"
+                  sx={{ color: isDarkTheme ? "#ede5d0" : "#432816" }}
+                />
+              </button>
+            )}
+          </div>
+        </LayoutTemplate>
+      )}
+    </>
+  );
+};
+
+export default Chapter1;

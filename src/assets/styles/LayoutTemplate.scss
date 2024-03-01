@@ -1,0 +1,56 @@
+.bg-st0 {
+  display: none;
+}
+.bg-st1 {
+  fill: #ede5d0;
+}
+.bg-st2 {
+  fill: #ffffff;
+}
+.bg-st3 {
+  fill: #d6c4a8;
+}
+.bg-st4 {
+  fill: #ee4623;
+  transform-origin: center;
+
+}
+.bg-st5 {
+  fill: #489094;
+}
+
+.chapter-list-item {
+  list-style: "-";
+  padding-left: 0.5rem;
+}
+
+.chapter-text {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.chapter-stars {
+  text-align: center;
+}
+
+.ql-editor .ql-align-justify {
+  margin-bottom: 10px;
+}
+
+.menu-enter {
+  opacity: 0.01;
+}
+
+.menu-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.menu-exit {
+  opacity: 1;
+}
+
+.menu-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

@@ -1,0 +1,151 @@
+@import "@/assets/styles/utills/variables.scss";
+
+.meditation {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../public/meditation-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  width: 100%;
+  height: 80%;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 640px;
+  z-index: 999;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33.33%;
+    font-weight: 300;
+    font-size: 28px;
+    color: $background-light;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33.33%;
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    margin-top: 0.5rem;
+  }
+
+  &__text {
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 20px;
+    color: $background-light;
+    text-align: center;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 33.33%;
+  }
+
+  &__time-text {
+    font-size: 0.75rem;
+    opacity: 0.38;
+    letter-spacing: 0.2;
+    font-weight: 300;
+    color: $background-light;
+  }
+}
+
+.my-node-enter {
+  opacity: 0;
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 2000ms;
+}
+
+.my-node-exit {
+  opacity: 1;
+}
+
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 2000ms;
+}
+
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root {
+  transition: opacity 0.5s;
+}
+.css-78trlr-MuiButtonBase-root-MuiIconButton-root :hover {
+  opacity: 0.8;
+}
+
+.speed-box {
+  position: relative;
+}
+
+.speed-select {
+  position: absolute;
+  left: 1.8rem;
+  bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #ffffff12;
+  outline: none;
+}
+
+option {
+  font-family: Helvetica, sans-serif;
+  font-weight: 200;
+  color: $background-light;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: #ffffff65;
+  }
+
+  &:active {
+    background-color: $background-light;
+  }
+}
+
+#myVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  object-fit: cover;
+}
